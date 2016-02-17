@@ -1,0 +1,59 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+	ext {
+    log4jVersion = '1.2.17'
+    springVersion = '4.2.3.RELEASE'
+    dbh2Version = '1.4.190' 
+	}
+
+    repositories {
+       mavenCentral()
+       maven { url "http://repo1.maven.org/maven2/" }
+    }
+    
+    dependencies {
+    
+    testCompile 'junit:junit:4.8.2'
+        
+    // Logger
+    compile "log4j:log4j:$log4jVersion"
+ 	
+ 	//H2
+ 	compile "com.h2database:h2:$dbh2Version"
+ 
+ 	// Spring
+    compile "org.springframework:spring-beans:$springVersion"
+    compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework:spring-core:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
+    
+    //Jersey
+    compile "com.sun.jersey:jersey-json:1.8"
+    //compile files('com/sun/jersey/jersey-clien/1.8/jersey-clien-1.8.jar')
+	compile "com.sun.jersey:jersey-client:1.8"
+	compile "com.sun.jersey:jersey-server:1.8"
+	compile "com.sun.jersey.contribs:jersey-spring:1.8"
+	
+	//Testing
+	testCompile group: 'junit', name: 'junit', version: '4.+'
+    compile "org.mockito:mockito-all:1.10.19"
+    compile "org.springframework:spring-test:4.1.6.RELEASE"
+    compile "com.github.springtestdbunit:spring-test-dbunit:1.2.1"
+    }
+
+	war {
+    webInf { from 'src/main/webapp/WEB-INF' } 
+    classpath fileTree('additionalLibs') 
+    webXml = file('src/main/webapp/WEB-INF/web.xml') 
+	}
+
+	task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+	}
