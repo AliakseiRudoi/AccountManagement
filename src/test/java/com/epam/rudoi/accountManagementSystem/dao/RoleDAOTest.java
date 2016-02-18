@@ -44,18 +44,16 @@ public class RoleDAOTest {
 	@Test
 	public void readRoleTest() throws DAOException {
 		List<PermissionGroup> permissionGroups = new ArrayList<PermissionGroup>();
-		Role expectedRole = new Role(3L, "content-manager", permissionGroups);
+		Role expectedRole = new Role(1L, "content-manager", permissionGroups);
 		Role resultRole = null;
 		
 		resultRole = roleDAO.read(1L);
-		System.out.println("!! "+ resultRole);
-		//assertEquals(expectedRole, resultRole);
+		assertEquals(expectedRole.getRoleId(), resultRole.getRoleId());
 	}
 	
 	@Test
 	public void updateRoleTest() throws DAOException {
 		List<PermissionGroup> permissionGroups = new ArrayList<PermissionGroup>();
-		
 		Role expectedRole = new Role(1L, "adminUpdated", permissionGroups);
 		Role resultRole = null;
 		
@@ -64,17 +62,14 @@ public class RoleDAOTest {
 		assertEquals(expectedRole.getRoleId(), resultRole.getRoleId());
 	}
 	
-	
-	@Test (expected=EmptyResultDataAccessException.class)
+	@Test 
 	public void deleteRoleTest() throws DAOException {
 		Role resultRole = null; 
 		
-		roleDAO.delete(3L);
-		resultRole = roleDAO.read(3L);
+		roleDAO.delete(4L);
+		resultRole = roleDAO.read(4L);
 		assertNull(resultRole);
 	}
-
-	
 	
 	@Test
 	public void linkWithItemsTest() throws DAOException {

@@ -21,7 +21,11 @@ public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissio
 	public static final String SQL_CREATE_PERMISSION_GROUPS = "INSERT INTO PERMISSION_GROUPS (PERMISSION_GROUP_NAME) VALUES (?)";
 	public static final String SQL_READ_PERMISSION_GROUPS = "SELECT * FROM PERMISSION_GROUPS WHERE PERMISSION_GROUP_ID= ?";
 	public static final String SQL_UPDATE_PERMISSION_GROUPS = "UPDATE PERMISSION_GROUPS SET PERMISSION_GROUP_NAME=? WHERE PERMISSION_GROUP_ID= ?";
-	public static final String SQL_DELETE_PERMISSION_GROUPS = "DELETE FROM PERMISSION_GROUPS WHERE PERMISSION_GROUP_ID = ?";
+	
+	
+	public static final String SQL_DELETE_PERMISSION_GROUP_FROM_PERMISSIONS_PERMISSION_GROUPS = "DELETE FROM PERMISSIONS_PERMISSION_GROUPS WHERE PERMISSION_GROUP_ID = ?";
+	public static final String SQL_DELETE_PERMISSION_GROUP_FROM_ROLES_PERMISSION_GROUPS = "DELETE FROM ROLES_PERMISSION_GROUPS WHERE PERMISSION_GROUP_ID = ?";
+	public static final String SQL_DELETE_PERMISSION_GROUP = "DELETE FROM PERMISSION_GROUPS WHERE PERMISSION_GROUP_ID = ?";
 	
 	public static final String SQL_SELECT_ALL_PERMISSION_GROUPS = "SELECT * FROM PERMISSION_GROUPS";
 	
@@ -53,7 +57,9 @@ public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissio
 	}
 
 	public void delete(Long permissionGroupId) throws DAOException {
-		getJdbcTemplate().update(SQL_DELETE_PERMISSION_GROUPS, Long.valueOf(permissionGroupId));
+		getJdbcTemplate().update(SQL_DELETE_PERMISSION_GROUP_FROM_PERMISSIONS_PERMISSION_GROUPS, Long.valueOf(permissionGroupId));
+		getJdbcTemplate().update(SQL_DELETE_PERMISSION_GROUP_FROM_ROLES_PERMISSION_GROUPS, Long.valueOf(permissionGroupId));
+		getJdbcTemplate().update(SQL_DELETE_PERMISSION_GROUP, Long.valueOf(permissionGroupId));
 	}
 
 	public void linkWithItems(final Long permissionGroupId, final List<Permission> permissionsList) throws DAOException {

@@ -58,14 +58,13 @@ public class PermissionDAOTest {
 		assertEquals(expectedPermission, resultPermission);
 	}
 	
-	@Test /*(expected=EmptyResultDataAccessException.class)*/
+	@Test (expected=EmptyResultDataAccessException.class)
 	public void deletePermissionTest() throws DAOException {
 		Permission resultPermission = null; 
 		
-		permissionDAO.delete(1L);
-		//resultPermission = permissionDAO.read(1L);
-		//assertNull(resultPermission);
-		//assertNotNull(resultPermission);
+		permissionDAO.delete(4L);
+		resultPermission = permissionDAO.read(4L);
+		assertNull(resultPermission);
 	}
 	
 	@Test

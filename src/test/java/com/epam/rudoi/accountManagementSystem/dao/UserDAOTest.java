@@ -12,7 +12,6 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -38,7 +37,6 @@ public class UserDAOTest {
 		Long expectedUserId = 1L;
 		Long resultUserId = null;
 		List<Role> rolesList = null;		
-		
 		User user = new User(1L, "user1", "user1", "user1", "user1@user.com", rolesList);
 		
 		resultUserId = userDAO.create(user);
@@ -49,7 +47,6 @@ public class UserDAOTest {
 	public void getAllUsersTest() throws DAOException{
 		List<User> resultUsersList = null;
 		resultUsersList = userDAO.getAllUsers();
-		System.out.println(resultUsersList);
 		assertNotNull(resultUsersList);
 	}
 	
@@ -76,12 +73,12 @@ public class UserDAOTest {
 		assertEquals(expectedUser.getFirstName(), resultUser.getFirstName());
 	}
 	
-	@Test (expected=EmptyResultDataAccessException.class)
+	@Test 
 	public void deleteUserTest() throws DAOException {
 		User resultUser = null; 
 		
-		userDAO.delete(3L);
-		resultUser = userDAO.read(3L);
+		userDAO.delete(4L);
+		resultUser = userDAO.read(4L);
 		assertNull(resultUser);
 	}
 	

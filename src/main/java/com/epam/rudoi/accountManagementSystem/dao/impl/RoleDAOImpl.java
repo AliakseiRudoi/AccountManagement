@@ -32,6 +32,9 @@ public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 		 		+ " WHERE R.ROLE_ID = ?";
 	 
 	 public static final String SQL_UPDATE_ROLES= "UPDATE ROLES SET ROLE_NAME=? WHERE ROLE_ID= ?";
+	 
+	 public static final String SQL_DELETE_ROLES_FROM_ROLES_PERMISSION_GROUPS= "DELETE FROM ROLES_PERMISSION_GROUPS WHERE ROLE_ID = ?";
+	 public static final String SQL_DELETE_ROLES_FROM_USERS_ROLES= "DELETE FROM USERS_ROLES WHERE ROLE_ID = ?";
 	 public static final String SQL_DELETE_ROLES= "DELETE FROM ROLES WHERE ROLE_ID = ?";
 	 
 	 public static final String SQL_BATCH_LINK_PERMISSION_GROUPS_WITH_ROLES= "INSERT INTO ROLES_PERMISSION_GROUPS(PERMISSION_GROUP_ID, ROLE_ID) VALUES (?,?)";
@@ -80,6 +83,8 @@ public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 	}
 
 	public void delete(Long roleId) throws DAOException {
+		getJdbcTemplate().update(SQL_DELETE_ROLES_FROM_USERS_ROLES, Long.valueOf(roleId));
+		getJdbcTemplate().update(SQL_DELETE_ROLES_FROM_ROLES_PERMISSION_GROUPS, Long.valueOf(roleId));
 		getJdbcTemplate().update(SQL_DELETE_ROLES, Long.valueOf(roleId));		
 	}
 

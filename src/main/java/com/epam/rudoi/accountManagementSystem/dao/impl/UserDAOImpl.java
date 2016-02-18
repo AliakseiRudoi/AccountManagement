@@ -26,7 +26,11 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 	 public static final String SQL_CREATE_USERS = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, USER_NAME, USER_EMAIL) VALUES (?,?,?,?)";
 	
 	 public static final String SQL_UPDATE_USERS= "UPDATE USERS SET FIRST_NAME=?, LAST_NAME=?, USER_NAME=?, USER_EMAIL=? WHERE USER_ID = ?";
+	 
+	 public static final String SQL_DELETE_USERS_FROM_USERS_ROLES= "DELETE FROM USERS_ROLES WHERE USER_ID = ?";
+	 public static final String SQL_DELETE_USERS_FROM_USERS_PERMISSIONS= "DELETE FROM USERS_PERMISSIONS WHERE USER_ID = ?";
 	 public static final String SQL_DELETE_USERS= "DELETE FROM USERS WHERE USER_ID = ?";
+	 
 	 public static final String SQL_BATCH_LINK_USERS_WITH_ROLES= "INSERT INTO USERS_ROLES(USER_ID, ROLE_ID) VALUES (?,?)";
 	 public static final String SQL_READ_ROLES_OF_USER = "SELECT r.ROLE_ID, r.ROLE_NAME FROM USERS_ROLES pg "
 				+ "INNER JOIN ROLES r ON pg.ROLE_ID = r.ROLE_ID WHERE USER_ID=?";
@@ -92,7 +96,10 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 	public User read(Long userId) throws DAOException {
 		User user = (User)getJdbcTemplate().query(SQL_READ_USER, new Object[] { userId }, new SingleUserExtractor(userId));
 		List<Permission> permissions= (List<Permission>)getJdbcTemplate().query(SQL_READ_USER_SEPARATE_PERMISSIONS, new Object[] { userId }, new SingleUserSeparateExtractor());
-		user.setSeparatePermissionsList(permissions);
+		if (!permissions.isEmpty()) {
+			user.setSeparatePermissionsList(permissions);	
+		}
+		
 		return user;
 	}
 
@@ -102,6 +109,8 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 	}
 
 	public void delete(Long userId) throws DAOException {
+		getJdbcTemplate().update(SQL_DELETE_USERS_FROM_USERS_PERMISSIONS, Long.valueOf(userId));
+		getJdbcTemplate().update(SQL_DELETE_USERS_FROM_USERS_ROLES, Long.valueOf(userId));
 		getJdbcTemplate().update(SQL_DELETE_USERS, Long.valueOf(userId));
 	}
 
