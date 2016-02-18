@@ -78,31 +78,4 @@ public interface IRoleRest {
 	 */
 	void unlinkWithPermissionGroups(Role role) throws ServiceException;
 	
-	/**
-	 * Associate current role with permission groups
-	 * This method associate current role with permission group.   
-	 * @param roleId the role id 
-	 * @param permissionGroupsList the list of permission groups
-	 * @throws ServiceException the service exception
-	 */
-	void linkWithSeparatePermissions(Role role) throws ServiceException;
-	
-	/**
-	 * Read all permission groups that have been associated with current role yet and that are exist
-	 * This method read all permission groups that have been associated with current role yet and that are exist 
-	 * @return List<Permission> list of permission groups that associate with the role
-	 * @param roleId the role id
-	 * @throws ServiceException the service exception
-	 */
-	List<Permission> readExistSeparatePermissions(Long roleId) throws ServiceException;
-
-	/**
-	 * Disassociate permission groups with current permission role
-	 * This method disassociate permission groups with current permission role
-	 * @param roleId the role entity
-	 * @param permissionGroupsList the list of permission groups
-	 * @throws ServiceException the service exception
-	 */
-	void unlinkWithSeparatePermissions(Role role) throws ServiceException;
-	
 }

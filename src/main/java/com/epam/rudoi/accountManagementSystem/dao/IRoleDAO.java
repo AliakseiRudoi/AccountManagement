@@ -9,7 +9,7 @@ import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 /**
  * The Interface IRoleDAO.
  */
-public interface IRoleDAO extends ICrudDAO<Role>, IManageDAO<PermissionGroup>, IManageSeparatePermissions{
+public interface IRoleDAO extends ICrudDAO<Role>, IManageDAO<PermissionGroup>{
 	/**
 	 * Get list of all roles.
 	 * This method get list of all roles.

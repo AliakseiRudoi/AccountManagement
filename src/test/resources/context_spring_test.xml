@@ -19,17 +19,6 @@
 	</jdbc:embedded-database>  
 	
 
-<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="org.h2.Driver" />
-    <property name="url" value="jdbc:h2:file:~/h2test.db" /> jdbc:h2:../../workspace/project_name/src/db/h2test.db
-    <property name="username" value="sa" />
-    <property name="password" value="" />
-</bean> -->
-
-<!-- <jdbc:initialize-database data-source="dataSource">
-    <jdbc:script location="classpath:create-db.sql" />
-	<jdbc:script location="classpath:insert-data.sql" />
- </jdbc:initialize-database>  -->
 	
 	
 	<bean id="contentService" class="com.epam.rudoi.accountManagementSystem.service.impl.ContentServiceImpl" >

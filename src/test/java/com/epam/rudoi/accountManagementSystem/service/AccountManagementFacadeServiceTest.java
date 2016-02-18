@@ -314,35 +314,6 @@ public class AccountManagementFacadeServiceTest {
 	}
 	
 	@Test
-	public void linkRoleWithSeparatePermissionsTest() throws ServiceException, DAOException {
-		Long roleId = 1L;
-		List<PermissionGroup> permissionGroups = new ArrayList<PermissionGroup>();
-		List<Permission> permissions = new ArrayList<Permission>();
-		Role role = new Role(1L, "test", permissionGroups, permissions);
-		
-		facadeService.linkRoleWithSeparatePermissions(role);
-		verify(roleServiceMock, times(1)).linkWithSeparatePermissions(roleId, permissions);
-	}
-	
-
-	@Test
-	public void readExistSeparatePermissionsOfRoleTest() throws ServiceException, DAOException {
-		facadeService.readExistSeparatePermissionsOfRole(anyLong());
-		verify(roleServiceMock, times(1)).readExistSeparatePermissions(anyLong());
-	}
-	
-	@Test
-	public void unlinkSeparatePermissionsFromRoleTest() throws ServiceException, DAOException {
-		Long roleId = 1L;
-		List<PermissionGroup> permissionGroups = new ArrayList<PermissionGroup>();
-		List<Permission> permissions = new ArrayList<Permission>();
-		Role role = new Role(1L, "test", permissionGroups, permissions);
-		
-		facadeService.unlinkSeparatePermissionsFromRole(role);
-		verify(roleServiceMock, times(1)).unlinkWithSeparatePermissions(roleId, permissions);
-	}
-	
-	@Test
 	public void readUserTest() throws ServiceException, DAOException {
 		User expectedUser = userMock;
 		User resultUser = null;

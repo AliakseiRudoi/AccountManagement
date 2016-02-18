@@ -116,15 +116,6 @@ public class AccountManagerFacadeServiceImpl implements IAccountManagerFacadeSer
 	public void unlinkPermissionGroupsFromRole(Role role) throws ServiceException {
 		roleService.unlinkWithPermissionGroups(role.getRoleId(), role.getPermissionGroupList());
 	}
-	public void linkRoleWithSeparatePermissions(Role role) throws ServiceException {
-		roleService.linkWithSeparatePermissions(role.getRoleId(), role.getSeparatePermissionsList());
-	}
-	public List<Permission> readExistSeparatePermissionsOfRole(Long roleId) throws ServiceException {
-		return roleService.readExistSeparatePermissions(roleId);
-	}
-	public void unlinkSeparatePermissionsFromRole(Role role) throws ServiceException {
-		roleService.unlinkWithSeparatePermissions(role.getRoleId(), role.getSeparatePermissionsList());
-	}
 	
 	/* USER */
 	

@@ -78,31 +78,4 @@ public interface IRoleService {
 	 */
 	void unlinkWithPermissionGroups(Long roleId, List<PermissionGroup> permissionGroupsToUnlinking) throws ServiceException;
 	
-	/**
-	 * Associate current role with some separate permissions
-	 * This method associate role with some separate permissions. For example associate Role entity with one or more permissions   
-	 * @param entityId the entity id 
-	 * @param permissionsList the list of permissions
-	 * @throws ServiceException the service exception
-	 */
-	void linkWithSeparatePermissions (Long roleId, List<Permission> permissionsToLinking) throws ServiceException;
-	
-	/**
-	 * Read all separate permissions that have been associated yet and that are exist.
-	 * This method read all separate permissions that have been associated yet and that are exist
-	 * @return List<Permission> list of permissions that associate with the group 
-	 * @param entityId the entity id
-	 * @throws ServiceException the service exception
-	 */
-	List<Permission> readExistSeparatePermissions (Long roleId) throws ServiceException;
-
-	/**
-	 * Disassociate role this separate permissions
-	 * This method disassociate role with separate permissions
-	 * @param entityId the entity id 
-	 * @param permissionsList the list of permissions
-	 * @throws ServiceException the service exception
-	 */
-	void unlinkWithSeparatePermissions (Long roleId, List<Permission> permissionsToUnlinking) throws ServiceException;
-	
 }

@@ -12,8 +12,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.epam.rudoi.accountManagementSystem.dao.IUserDAO;
+import com.epam.rudoi.accountManagementSystem.dao.impl.extractors.user.SingleUserExtractor;
+import com.epam.rudoi.accountManagementSystem.dao.impl.extractors.user.SingleUserSeparateExtractor;
+import com.epam.rudoi.accountManagementSystem.dao.impl.extractors.user.UsersExtractor;
+import com.epam.rudoi.accountManagementSystem.dao.impl.extractors.user.UsersSeparatePermsExtractor;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
-import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.entity.User;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
@@ -21,19 +24,20 @@ import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 
 	 public static final String SQL_CREATE_USERS = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, USER_NAME, USER_EMAIL) VALUES (?,?,?,?)";
-	 public static final String SQL_READ_USER= "SELECT * FROM USERS WHERE USER_ID = ?";
+	
 	 public static final String SQL_UPDATE_USERS= "UPDATE USERS SET FIRST_NAME=?, LAST_NAME=?, USER_NAME=?, USER_EMAIL=? WHERE USER_ID = ?";
 	 public static final String SQL_DELETE_USERS= "DELETE FROM USERS WHERE USER_ID = ?";
-	 public static final String SQL_BATCH_LINK_USERS_WITH_ROLES= "INSERT INTO USERS_ROLES_PERMISSIONS(USER_ID, ROLE_ID) VALUES (?,?)";
-	 public static final String SQL_READ_ROLES_OF_USER = "SELECT r.ROLE_ID, r.ROLE_NAME FROM USERS_ROLES_PERMISSIONS pg "
+	 public static final String SQL_BATCH_LINK_USERS_WITH_ROLES= "INSERT INTO USERS_ROLES(USER_ID, ROLE_ID) VALUES (?,?)";
+	 public static final String SQL_READ_ROLES_OF_USER = "SELECT r.ROLE_ID, r.ROLE_NAME FROM USERS_ROLES pg "
 				+ "INNER JOIN ROLES r ON pg.ROLE_ID = r.ROLE_ID WHERE USER_ID=?";
-	 public static final String SQL_BATCH_DELETE_ROLES_OF_USER = "DELETE FROM USERS_ROLES_PERMISSIONS WHERE USER_ID = ? AND ROLE_ID=?";
+	 public static final String SQL_BATCH_DELETE_ROLES_OF_USER = "DELETE FROM USERS_ROLES WHERE USER_ID = ? AND ROLE_ID=?";
 	 public static final String SQL_SELECT_ALL_USERS= "SELECT * FROM USERS";
 	 
-	 public static final String SQL_BATCH_LINK_USERS_WITH_SEPARATE_PERMISSIONS = "INSERT INTO USERS_ROLES_PERMISSIONS(USER_ID, PERMISSION_ID) VALUES (?,?)";
-	 public static final String SQL_READ_SEPARATE_PERMISSIONS_OF_USER = "SELECT r.PERMISSION_ID, r.PERMISSION_NAME FROM USERS_ROLES_PERMISSIONS pg "
+	 public static final String SQL_BATCH_LINK_USERS_WITH_SEPARATE_PERMISSIONS = "INSERT INTO USERS_PERMISSIONS(USER_ID, PERMISSION_ID) VALUES (?,?)";
+	 
+	 public static final String SQL_READ_SEPARATE_PERMISSIONS_OF_USER = "SELECT r.PERMISSION_ID, r.PERMISSION_NAME FROM USERS_PERMISSIONS pg "
 				+ "INNER JOIN PERMISSIONS r ON pg.PERMISSION_ID = r.PERMISSION_ID WHERE USER_ID=?";
-	 public static final String SQL_BATCH_DELETE_SEPARATE_PERMISSIONS_OF_USER = "DELETE FROM USERS_ROLES_PERMISSIONS WHERE USER_ID = ? AND PERMISSION_ID=?";
+	 public static final String SQL_BATCH_DELETE_SEPARATE_PERMISSIONS_OF_USER = "DELETE FROM USERS_PERMISSIONS WHERE USER_ID = ? AND PERMISSION_ID=?";
 	
 	 public static final String SQL_READ_PERMISSIONS_OF_ROLE = "SELECT r.PERMISSION_ID, r.PERMISSION_NAME FROM ROLES_PERMISSION_GROUPS_PERMISSIONS pg "
 				+ "INNER JOIN PERMISSIONS r ON pg.PERMISSION_ID = r.PERMISSION_ID WHERE USER_ID=?";
@@ -45,6 +49,37 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 	 public static final String SQL_READ_SEPARATE_PERMISSIONS_OF_PERMISSION_GROUP = "SELECT r.PERMISSION_ID, r.PERMISSION_NAME FROM ROLES_PERMISSION_GROUPS_PERMISSIONS pg "
 				+ "INNER JOIN PERMISSIONS r ON pg.PERMISSION_ID = r.PERMISSION_ID WHERE ROLE_ID=?";
 	 
+	 public static final String SQL_READ_ALL_USERS = "SELECT U.USER_ID, U.FIRST_NAME, U.LAST_NAME, U.USER_NAME, U.USER_EMAIL,"
+	 			+ " R.ROLE_ID, R.ROLE_NAME, PG.PERMISSION_GROUP_ID, PG.PERMISSION_GROUP_NAME,"
+	 			+ " P.PERMISSION_ID, P.PERMISSION_NAME"
+		 		+ " FROM USERS_ROLES UR"
+		 		+ " INNER JOIN USERS U ON U.USER_ID = UR.USER_ID"
+		 		+ " INNER JOIN ROLES R ON R.ROLE_ID = UR.ROLE_ID"
+		 		+ " INNER JOIN ROLES_PERMISSION_GROUPS RPG ON RPG.ROLE_ID = R.ROLE_ID"
+		 		+ " INNER JOIN PERMISSION_GROUPS PG ON PG.PERMISSION_GROUP_ID = RPG.PERMISSION_GROUP_ID"
+		 		+ " INNER JOIN PERMISSIONS_PERMISSION_GROUPS PPG ON PPG.PERMISSION_GROUP_ID = PG.PERMISSION_GROUP_ID"
+		 		+ " INNER JOIN PERMISSIONS P ON P.PERMISSION_ID = PPG.PERMISSION_ID";
+	 
+	 public static final String SQL_READ_ALL_USERS_SEPARATE_PERMISSIONS = "SELECT UP.USER_ID, P.PERMISSION_ID, P.PERMISSION_NAME"
+		 		+ " FROM USERS_PERMISSIONS UP"
+		 		+ " INNER JOIN PERMISSIONS P ON P.PERMISSION_ID = UP.PERMISSION_ID";
+	 
+	 public static final String SQL_READ_USER = "SELECT U.USER_ID, U.FIRST_NAME, U.LAST_NAME, U.USER_NAME, U.USER_EMAIL,"
+	 			+ " R.ROLE_ID, R.ROLE_NAME, PG.PERMISSION_GROUP_ID, PG.PERMISSION_GROUP_NAME,"
+	 			+ " P.PERMISSION_ID, P.PERMISSION_NAME"
+		 		+ " FROM USERS_ROLES UR"
+		 		+ " INNER JOIN USERS U ON U.USER_ID = UR.USER_ID"
+		 		+ " INNER JOIN ROLES R ON R.ROLE_ID = UR.ROLE_ID"
+		 		+ " INNER JOIN ROLES_PERMISSION_GROUPS RPG ON RPG.ROLE_ID = R.ROLE_ID"
+		 		+ " INNER JOIN PERMISSION_GROUPS PG ON PG.PERMISSION_GROUP_ID = RPG.PERMISSION_GROUP_ID"
+		 		+ " INNER JOIN PERMISSIONS_PERMISSION_GROUPS PPG ON PPG.PERMISSION_GROUP_ID = PG.PERMISSION_GROUP_ID"
+		 		+ " INNER JOIN PERMISSIONS P ON P.PERMISSION_ID = PPG.PERMISSION_ID"
+		 		+ " WHERE U.USER_ID = ?";
+	 
+	 public static final String SQL_READ_USER_SEPARATE_PERMISSIONS = "SELECT P.PERMISSION_ID, P.PERMISSION_NAME FROM USERS_PERMISSIONS UP"
+	 		+ " INNER JOIN PERMISSIONS P ON P.PERMISSION_ID = UP.PERMISSION_ID"
+	 		+ " WHERE USER_ID = ?";
+	 
 	 @Autowired
 	 private DataSource dataSource;
 	 
@@ -55,10 +90,10 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 	}
 
 	public User read(Long userId) throws DAOException {
-		User user = (User)getJdbcTemplate().queryForObject(
-				SQL_READ_USER, new Object[] { userId }, 
-				new BeanPropertyRowMapper(User.class));
-		return mapToSingleUser(user);
+		User user = (User)getJdbcTemplate().query(SQL_READ_USER, new Object[] { userId }, new SingleUserExtractor(userId));
+		List<Permission> permissions= (List<Permission>)getJdbcTemplate().query(SQL_READ_USER_SEPARATE_PERMISSIONS, new Object[] { userId }, new SingleUserSeparateExtractor());
+		user.setSeparatePermissionsList(permissions);
+		return user;
 	}
 
 	public void update(User user) throws DAOException {
@@ -143,68 +178,18 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 	}
 	
 	public List<User> getAllUsers() throws DAOException {
-		List<User> usersList = getJdbcTemplate().query(SQL_SELECT_ALL_USERS,
-				new BeanPropertyRowMapper(User.class));
-		return mapToAllUsers(usersList);
-	}
-	
-	private List<User> mapToAllUsers(List<User> userList) {
-		List<User> users = userList;
+		List<User> users = (List<User>) getJdbcTemplate().query(SQL_READ_ALL_USERS, new UsersExtractor());
+		List<User> usersSepPerms = (List<User>) getJdbcTemplate().query(SQL_READ_ALL_USERS_SEPARATE_PERMISSIONS, new UsersSeparatePermsExtractor());
+
 		for (User user : users) {
-			List<Role> roles = getJdbcTemplate().query(SQL_READ_ROLES_OF_USER,
-					new Object[] { user.getUserId() }, new BeanPropertyRowMapper(Role.class));
-			user.setRolesList(roles);
-			
-			for (Role role : roles) {
-				List<Permission> permissions = getJdbcTemplate().query(SQL_READ_PERMISSIONS_OF_ROLE_PERMISSION_GROUP,
-						new Object[] { role.getRoleId() }, new BeanPropertyRowMapper(Permission.class));
-				role.setSeparatePermissionsList(permissions);
-				
-				List<PermissionGroup> permissionGroups = getJdbcTemplate().query(SQL_READ_PERMISSION_GROUPS_OF_ROLES_USER,
-						new Object[] { role.getRoleId() }, new BeanPropertyRowMapper(PermissionGroup.class));
-				role.setPermissionGroupList(permissionGroups);
-				
-				for (PermissionGroup permissionGroup : permissionGroups) {
-					List<Permission> separatePermissions = getJdbcTemplate().query(SQL_READ_SEPARATE_PERMISSIONS_OF_PERMISSION_GROUP,
-							new Object[] { permissionGroup.getPermissionGroupId() }, new BeanPropertyRowMapper(Permission.class));
-					permissionGroup.setPermissionsList(separatePermissions);
+			for (User userSP : usersSepPerms) {
+				if (user.getUserId().equals(userSP.getUserId())) {
+					user.setSeparatePermissionsList(userSP.getSeparatePermissionsList());
 				}
 			}
-			
 		}
-		for (User user : users) {
-			List<Permission> separatePermissions = getJdbcTemplate().query(SQL_READ_SEPARATE_PERMISSIONS_OF_USER,
-					new Object[] { user.getUserId() }, new BeanPropertyRowMapper(Permission.class));
-			user.setSeparatePermissionsList(separatePermissions);
-		}
+		
 		return users;
 	}
 	
-	private User mapToSingleUser(User user) {
-		User singleUser = user;
-		List<Role> roles = getJdbcTemplate().query(SQL_READ_ROLES_OF_USER,
-				new Object[] { singleUser.getUserId() }, new BeanPropertyRowMapper(Role.class));
-		singleUser.setRolesList(roles);
-		for (Role role : roles) {
-			List<Permission> permissions = getJdbcTemplate().query(SQL_READ_PERMISSIONS_OF_ROLE_PERMISSION_GROUP,
-					new Object[] { role.getRoleId() }, new BeanPropertyRowMapper(Permission.class));
-			role.setSeparatePermissionsList(permissions);
-			
-			List<PermissionGroup> permissionGroups = getJdbcTemplate().query(SQL_READ_PERMISSION_GROUPS_OF_ROLES_USER,
-					new Object[] { role.getRoleId() }, new BeanPropertyRowMapper(PermissionGroup.class));
-			role.setPermissionGroupList(permissionGroups);
-			
-			for (PermissionGroup permissionGroup : permissionGroups) {
-				List<Permission> separatePermissions = getJdbcTemplate().query(SQL_READ_SEPARATE_PERMISSIONS_OF_PERMISSION_GROUP,
-						new Object[] { permissionGroup.getPermissionGroupId() }, new BeanPropertyRowMapper(Permission.class));
-				permissionGroup.setPermissionsList(separatePermissions);
-			}
-		}
-		List<Permission> separatePermissions = getJdbcTemplate().query(SQL_READ_SEPARATE_PERMISSIONS_OF_USER,
-				new Object[] { singleUser.getUserId() }, new BeanPropertyRowMapper(Permission.class));
-		singleUser.setSeparatePermissionsList(separatePermissions);
-		return singleUser;
-	}
-
-
 }

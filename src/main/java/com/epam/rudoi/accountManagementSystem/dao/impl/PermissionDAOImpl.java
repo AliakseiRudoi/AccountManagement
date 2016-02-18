@@ -16,9 +16,27 @@ public class PermissionDAOImpl extends JdbcDaoSupport implements IPermissionDAO{
 	 public static final String SQL_CREATE_PERMISSION = "INSERT INTO PERMISSIONS (PERMISSION_NAME) VALUES (?)";
 	 public static final String SQL_READ_PERMISSION= "SELECT * FROM PERMISSIONS WHERE PERMISSION_ID = ?";
 	 public static final String SQL_UPDATE_PERMISSION= "UPDATE PERMISSIONS SET PERMISSION_NAME=? WHERE PERMISSION_ID= ?";
-	 public static final String SQL_DELETE_PERMISSION= "DELETE FROM PERMISSIONS WHERE PERMISSION_ID = ?";
+	 
+	 public static final String SQL_DELETE_PERMISSION= " DELETE FROM USERS_PERMISSIONS WHERE PERMISSION_ID = ?; "
+			+ " DELETE FROM PERMISSIONS WHERE PERMISSION_ID = ?; "; 
+	 
+	 public static final String SQL_DELETE_PERMISSION1= "DELETE FROM USERS_PERMISSIONS WHERE PERMISSION_ID= ?;"
+	 		+ " DELETE FROM PERMISSIONS WHERE PERMISSION_ID= ?";
+	 
+	 /*DELETE message.*, usersmessage.* from users, usersmessage WHERE message.messageid=usersmessage.messageid AND message.messageid='1'*/
+	 
+	 /*DELETE messages , usersmessages  FROM messages  INNER JOIN usersmessages  
+WHERE messages.messageid= usersmessages.messageid and messages.messageid = '1'*/
+	 
+	 /*DELETE parent, children FROM PARENT parent
+	 LEFT JOIN CHILDREN children ON parent.ID = children.PARENT_ID
+	 WHERE PARENT.ID = 4;*/
+	 
 	 public static final String SQL_SELECT_ALL_PERMISSIONS = "SELECT * FROM PERMISSIONS";
 	
+	 /*public static final String SQL_DELETE_PERMISSION1= "DELETE PERMISSION_ID FROM PERMISSIONS P"
+	 		+ " INNER JOIN PERMISSIONS_PERMISSION_GROUPS PPG ON PPG.PERMISSION_ID = P.PERMISSION_ID WHERE PERMISSION_ID = ? ";*/
+	 
 	public Long create(Permission permission) throws DAOException {
 		Long permissionId= (long)getJdbcTemplate().update(SQL_CREATE_PERMISSION,
 				new Object[] { permission.getPermissionName() });
@@ -38,7 +56,7 @@ public class PermissionDAOImpl extends JdbcDaoSupport implements IPermissionDAO{
 	}
 
 	public void delete(Long permissionId) throws DAOException {
-		getJdbcTemplate().update(SQL_DELETE_PERMISSION, Long.valueOf(permissionId));
+		getJdbcTemplate().update(SQL_DELETE_PERMISSION, new Object[] { permissionId, permissionId });
 	}
 
 	public List<Permission> getAllPermissions() throws DAOException {

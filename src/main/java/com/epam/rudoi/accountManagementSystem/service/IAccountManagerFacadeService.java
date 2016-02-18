@@ -229,31 +229,6 @@ public interface IAccountManagerFacadeService {
 	 */
 	void unlinkPermissionGroupsFromRole(Role role) throws ServiceException;
 	
-	/**
-	 * Associate current role with some separate permissions
-	 * This method associate role with some separate permissions. For example associate Role entity with one or more permissions   
-	 * @param Role the role entity
-	 * @throws ServiceException the service exception
-	 */
-	void linkRoleWithSeparatePermissions (Role role) throws ServiceException;
-	
-	/**
-	 * Read all separate permissions that have been associated yet and that are exist.
-	 * This method read all separate permissions that have been associated yet and that are exist
-	 * @return List<Permission> list of permissions that associate with the group 
-	 * @param Role the role entity
-	 * @throws ServiceException the service exception
-	 */
-	List<Permission> readExistSeparatePermissionsOfRole (Long roleId) throws ServiceException;
-
-	/**
-	 * Disassociate role this separate permissions
-	 * This method disassociate role with separate permissions
-	 * @param Role the role entity
-	 * @throws ServiceException the service exception
-	 */
-	void unlinkSeparatePermissionsFromRole (Role role) throws ServiceException;
-	
 	/* User */
 	
 	/**

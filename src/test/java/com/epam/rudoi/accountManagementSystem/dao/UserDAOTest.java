@@ -46,30 +46,38 @@ public class UserDAOTest {
 	}
 	
 	@Test
+	public void getAllUsersTest() throws DAOException{
+		List<User> resultUsersList = null;
+		resultUsersList = userDAO.getAllUsers();
+		System.out.println(resultUsersList);
+		assertNotNull(resultUsersList);
+	}
+	
+	@Test
 	public void readUserTest() throws DAOException {
 		List<Role> roles = new ArrayList<Role>();
 		List<Permission> permissions = new ArrayList<Permission>();
-		User expectedUser = new User(2L, "user2", "user2", "user2", "user2@user.com", roles, permissions);
+		User expectedUser = new User(1L, "user2", "user2", "user2", "user2@user.com", roles, permissions);
 		User resultUser = null;
 		
-		resultUser = userDAO.read(2L);
-		assertEquals(expectedUser, resultUser);
+		resultUser = userDAO.read(1L);
+		assertEquals(expectedUser.getUserId(), resultUser.getUserId());
 	}
 	
 	@Test
 	public void updateUserTest() throws DAOException {
 		List<Role> roles = new ArrayList<Role>();
 		List<Permission> permissions = new ArrayList<Permission>();
-		User expectedUser = new User(3L, "user1Update", "user1Update", "user1Update", "user1Update@user.com", roles, permissions);
+		User expectedUser = new User(1L, "user1Update", "user1Update", "user1Update", "user1Update@user.com", roles, permissions);
 		User resultUser = null;
 		
 		userDAO.update(expectedUser);
-		resultUser = userDAO.read(3L);
-		assertEquals(expectedUser, resultUser);
+		resultUser = userDAO.read(1L);
+		assertEquals(expectedUser.getFirstName(), resultUser.getFirstName());
 	}
 	
 	@Test (expected=EmptyResultDataAccessException.class)
-	public void deleteRoleTest() throws DAOException {
+	public void deleteUserTest() throws DAOException {
 		User resultUser = null; 
 		
 		userDAO.delete(3L);
@@ -112,14 +120,6 @@ public class UserDAOTest {
 	}
 	
 	@Test
-	public void getAllUsersTest() throws DAOException{
-		List<User> resultUsersList = null;
-		resultUsersList = userDAO.getAllUsers();
-		
-		assertNotNull(resultUsersList);
-	}
-	
-	@Test
 	public void linkWithSeparatePermissionsTest() throws DAOException {
 		List<Permission> expectedPermissionsList = new ArrayList<Permission>();
 		List<Permission> resultPermissionsList = null;
@@ -137,7 +137,7 @@ public class UserDAOTest {
 		resultPermissionsList = userDAO.readExistSeparatePermissions(1L);
 		assertFalse(resultPermissionsList.isEmpty());
 	}
-	
+
 	@Test
 	public void unlinkWithSeparatePermissionsTest() throws DAOException {
 		List<Permission> permissionsList = new ArrayList<Permission>();
@@ -147,8 +147,8 @@ public class UserDAOTest {
 		permissionsList.add(permission);
 		permissionsList.add(permission2);
 		
-		userDAO.unlinkWithSeparatePermissions(2L, permissionsList);
-		resultPermissionsList = userDAO.readExistSeparatePermissions(2L);
+		userDAO.unlinkWithSeparatePermissions(3L, permissionsList);
+		resultPermissionsList = userDAO.readExistSeparatePermissions(3L);
 		assertTrue(resultPermissionsList.isEmpty());
 	}
 	

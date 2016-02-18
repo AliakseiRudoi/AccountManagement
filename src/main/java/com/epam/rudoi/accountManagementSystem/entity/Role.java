@@ -10,8 +10,6 @@ public class Role {
 	
 	private List<PermissionGroup> permissionGroupList;
 
-	private List<Permission> separatePermissionsList;
-	
 	public Role() {
 		super();
 	}
@@ -27,15 +25,6 @@ public class Role {
 		this.roleId = roleId;
 		this.roleName = roleName;
 		this.permissionGroupList = permissionGroupList;
-	}
-	
-	public Role(Long roleId, String roleName, List<PermissionGroup> permissionGroupList,
-			List<Permission> separatePermissionsList) {
-		super();
-		this.roleId = roleId;
-		this.roleName = roleName;
-		this.permissionGroupList = permissionGroupList;
-		this.separatePermissionsList = separatePermissionsList;
 	}
 
 	public Long getRoleId() {
@@ -62,14 +51,6 @@ public class Role {
 		this.permissionGroupList = permissionGroupList;
 	}
 
-	public List<Permission> getSeparatePermissionsList() {
-		return separatePermissionsList;
-	}
-
-	public void setSeparatePermissionsList(List<Permission> separatePermissionsList) {
-		this.separatePermissionsList = separatePermissionsList;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,7 +58,6 @@ public class Role {
 		result = prime * result + ((permissionGroupList == null) ? 0 : permissionGroupList.hashCode());
 		result = prime * result + ((roleId == null) ? 0 : roleId.hashCode());
 		result = prime * result + ((roleName == null) ? 0 : roleName.hashCode());
-		result = prime * result + ((separatePermissionsList == null) ? 0 : separatePermissionsList.hashCode());
 		return result;
 	}
 
@@ -105,18 +85,14 @@ public class Role {
 				return false;
 		} else if (!roleName.equals(other.roleName))
 			return false;
-		if (separatePermissionsList == null) {
-			if (other.separatePermissionsList != null)
-				return false;
-		} else if (!separatePermissionsList.equals(other.separatePermissionsList))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", permissionGroupList=" + permissionGroupList
-				+ ", separatePermissionsList=" + separatePermissionsList + "]";
+				+ "]";
 	}
+	
 
 }

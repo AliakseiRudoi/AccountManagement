@@ -102,36 +102,4 @@ public class RoleServiceImpl implements IRoleService{
 		}
 	}
 
-	@Override
-	public void linkWithSeparatePermissions(Long roleId, List<Permission> permissionsToLinking)
-			throws ServiceException {
-		try {
-			roleDAO.linkWithSeparatePermissions(roleId, permissionsToLinking);
-		} catch (DAOException e) {
-			LOGGER.error("Linking separate permissions with role "+roleId+" exeption", e);
-		    throw new ServiceException(e);
-		}
-	}
-
-	@Override
-	public List<Permission> readExistSeparatePermissions(Long roleId) throws ServiceException {
-		try {
-			return roleDAO.readExistSeparatePermissions(roleId);
-		} catch (DAOException e) {
-			LOGGER.error("Reading exist separate permissions for role "+ roleId +" exeption", e);
-		    throw new ServiceException(e);
-		}
-	}
-
-	@Override
-	public void unlinkWithSeparatePermissions(Long roleId, List<Permission> permissionsToUnlinking)
-			throws ServiceException {
-		try {
-			roleDAO.unlinkWithSeparatePermissions(roleId, permissionsToUnlinking);
-		} catch (DAOException e) {
-			LOGGER.error("Unlinking separate permissions with role "+ roleId +" exeption", e);
-		    throw new ServiceException(e);
-		}
-	}
-
 }

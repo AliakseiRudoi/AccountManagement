@@ -82,25 +82,4 @@ public class RoleRestImpl implements IRoleRest{
 		accManagerFacadeService.unlinkPermissionGroupsFromRole(role);
 	}
 
-	@POST
-	@Path("/{id}/separatepermissions/link")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void linkWithSeparatePermissions(Role role) throws ServiceException {
-		accManagerFacadeService.linkRoleWithSeparatePermissions(role);
-	}
-
-	@GET
-	@Path("/{id}/separatepermissions")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Permission> readExistSeparatePermissions(@PathParam("id") Long roleId) throws ServiceException {
-		return accManagerFacadeService.readExistSeparatePermissionsOfRole(roleId);
-	}
-
-	@POST
-	@Path("/{id}/separatepermissions/unlink")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void unlinkWithSeparatePermissions(Role role) throws ServiceException {
-		accManagerFacadeService.unlinkSeparatePermissionsFromRole(role);
-	}
-
 }
