@@ -71,7 +71,7 @@ public class PermissionDAOTest {
 	public void getAllPermissionsTest() throws DAOException {
 		List<Permission> permissionsList = null;
 		permissionsList = permissionDAO.getAllPermissions();
-		
+
 		assertNotNull(permissionsList);
 	}
 }

@@ -47,8 +47,7 @@ public class PermissionGroupDAOTest {
 	
 	@Test
 	public void readPermissionGroupTest() throws DAOException {
-		List<Permission> permissions = new ArrayList<Permission>();
-		PermissionGroup expectedPermissionGroup = new PermissionGroup(3L, "permGroup-content-manage", permissions);
+		PermissionGroup expectedPermissionGroup = new PermissionGroup(3L, "permGroup-content-manage");
 		PermissionGroup resultPermissionGroup = null;
 		
 		resultPermissionGroup = permissionGroupDAO.read(3L);
@@ -57,8 +56,7 @@ public class PermissionGroupDAOTest {
 	
 	@Test
 	public void updatePermissionGroupTest() throws DAOException {
-		List<Permission> permissions = new ArrayList<Permission>();
-		PermissionGroup expectedPermissionGroup = new PermissionGroup(2L, "permGroup-role-managerUpdated", permissions);
+		PermissionGroup expectedPermissionGroup = new PermissionGroup(2L, "permGroup-role-managerUpdated");
 		PermissionGroup resultPermissionGroup = null;
 		
 		permissionGroupDAO.update(expectedPermissionGroup);

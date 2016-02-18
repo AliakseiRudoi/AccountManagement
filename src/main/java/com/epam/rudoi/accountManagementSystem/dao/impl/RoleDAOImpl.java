@@ -12,8 +12,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.epam.rudoi.accountManagementSystem.dao.IRoleDAO;
-import com.epam.rudoi.accountManagementSystem.dao.impl.extractors.role.RolesExtractor;
-import com.epam.rudoi.accountManagementSystem.dao.impl.extractors.role.SingleRoleExtractor;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
@@ -22,15 +20,9 @@ import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 
 	 public static final String SQL_CREATE_ROLES = "INSERT INTO ROLES (ROLE_NAME) VALUES (?)";
-	 public static final String SQL_READ_ROLES= "SELECT R.ROLE_ID, R.ROLE_NAME, P.PERMISSION_ID, P.PERMISSION_NAME, PG.PERMISSION_GROUP_ID,"
-		 		+ " PG.PERMISSION_GROUP_NAME"
-		 		+ " FROM ROLES_PERMISSION_GROUPS OG"
-		 		+ " INNER JOIN ROLES R ON R.ROLE_ID = OG.ROLE_ID"
-		 		+ " INNER JOIN PERMISSION_GROUPS PG ON PG.PERMISSION_GROUP_ID = OG.PERMISSION_GROUP_ID"
-		 		+ " INNER JOIN PERMISSIONS_PERMISSION_GROUPS PPG"
-		 		+ " INNER JOIN PERMISSIONS P ON P.PERMISSION_ID = PPG.PERMISSION_ID"
-		 		+ " WHERE R.ROLE_ID = ?";
-	 
+
+	 public static final String SQL_READ_ROLE= "SELECT R.ROLE_ID, R.ROLE_NAME FROM ROLES R WHERE ROLE_ID = ?";
+		 		
 	 public static final String SQL_UPDATE_ROLES= "UPDATE ROLES SET ROLE_NAME=? WHERE ROLE_ID= ?";
 	 
 	 public static final String SQL_DELETE_ROLES_FROM_ROLES_PERMISSION_GROUPS= "DELETE FROM ROLES_PERMISSION_GROUPS WHERE ROLE_ID = ?";
@@ -50,13 +42,7 @@ public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 	 public static final String SQL_READ_PERMISSIONS_OF_ROLE_PERMISSION_GROUP = "SELECT r.PERMISSION_ID, r.PERMISSION_NAME FROM ROLES_PERMISSION_GROUPS pg "
 				+ "INNER JOIN PERMISSIONS r ON pg.PERMISSION_ID = r.PERMISSION_ID WHERE ROLE_ID=?";
 
-	 public static final String SQL_READ_ALL_ROLES = "SELECT R.ROLE_ID, R.ROLE_NAME, P.PERMISSION_ID, P.PERMISSION_NAME, PG.PERMISSION_GROUP_ID,"
-	 		+ " PG.PERMISSION_GROUP_NAME"
-	 		+ " FROM ROLES_PERMISSION_GROUPS OG"
-	 		+ " INNER JOIN ROLES R ON R.ROLE_ID = OG.ROLE_ID"
-	 		+ " INNER JOIN PERMISSION_GROUPS PG ON PG.PERMISSION_GROUP_ID = OG.PERMISSION_GROUP_ID"
-	 		+ " INNER JOIN PERMISSIONS_PERMISSION_GROUPS PPG ON PPG.PERMISSION_GROUP_ID = PG.PERMISSION_GROUP_ID"
-	 		+ " INNER JOIN PERMISSIONS P ON P.PERMISSION_ID = PPG.PERMISSION_ID";
+	 public static final String SQL_READ_ALL_ROLES = "SELECT ROLE_ID, ROLE_NAME FROM ROLES";
 	 
 	 public static final String SQL_READ_ALL_SEPARATE_PERMISSIONS_FOR_ROLES = "SELECT R.ROLE_ID, P.PERMISSION_ID, P.PERMISSION_NAME "
 	 		+ "FROM ROLES_PERMISSION_GROUPS OG"
@@ -73,7 +59,7 @@ public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 	}
 	
 	public Role read(Long roleId) throws DAOException {
-		Role role = (Role)getJdbcTemplate().query(SQL_READ_ROLES, new Object[] { roleId }, new SingleRoleExtractor(roleId));
+		Role role = (Role) getJdbcTemplate().queryForObject(SQL_READ_ROLE, new Object[] { roleId }, new BeanPropertyRowMapper(Role.class));
 		return role;
 	}
 	
@@ -121,7 +107,7 @@ public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 	}
 	
 	public List<Role> getAllRoles() throws DAOException {
-		List<Role> roles = (List<Role>) getJdbcTemplate().query(SQL_READ_ALL_ROLES, new RolesExtractor());
+		List<Role> roles = (List<Role>) getJdbcTemplate().query(SQL_READ_ALL_ROLES, new BeanPropertyRowMapper(Role.class));
 		return roles;
 	}
 }

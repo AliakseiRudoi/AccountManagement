@@ -43,8 +43,7 @@ public class RoleDAOTest {
 	
 	@Test
 	public void readRoleTest() throws DAOException {
-		List<PermissionGroup> permissionGroups = new ArrayList<PermissionGroup>();
-		Role expectedRole = new Role(1L, "content-manager", permissionGroups);
+		Role expectedRole = new Role(1L, "content-manager");
 		Role resultRole = null;
 		
 		resultRole = roleDAO.read(1L);
@@ -62,7 +61,7 @@ public class RoleDAOTest {
 		assertEquals(expectedRole.getRoleId(), resultRole.getRoleId());
 	}
 	
-	@Test 
+	@Test (expected=EmptyResultDataAccessException.class)
 	public void deleteRoleTest() throws DAOException {
 		Role resultRole = null; 
 		
@@ -108,7 +107,6 @@ public class RoleDAOTest {
 	public void getAllRolesTest() throws DAOException{
 		List<Role> resultRolesList = null;
 		resultRolesList = roleDAO.getAllRoles();
-		
 		assertNotNull(resultRolesList);
 	}
 	

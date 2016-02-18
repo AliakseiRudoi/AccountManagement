@@ -18,25 +18,41 @@ public class UsersSeparatePermsExtractor implements ResultSetExtractor{
 	@Override
 	public List<User> extractData(ResultSet rs) throws SQLException, DataAccessException {
 		Map<Long, User> map = new HashMap<Long, User>();
-	
+		Long userId = null;
+		User user = null;
+		List<Permission> permissions = null;
+		Long permissionId = null;
 		while (rs.next()) {
-			Long userId = rs.getLong("USER_ID");
-			User user = map.get(userId);
+			//System.out.println(permissions);
+			/*while(user!=null && !userId.equals(rs.getLong("USER_ID"))){
+				
+				permissionId = rs.getLong("PERMISSION_ID");
+				  if (permissionId > 0) {
+					  Permission permission = new Permission();
+					  permission.setPermissionId(permissionId);
+					  permission.setPermissionName(rs.getString("PERMISSION_NAME"));
+					  permissions.add(permission);
+				  }
+				  System.out.println(permissions);
+				  user.setSeparatePermissionsList(permissions);
+			} */
+			
+			userId = rs.getLong("USER_ID");
+			user = map.get(userId);
 			if(user==null){
 				user = new User();
 				user.setUserId(userId);
 				 map.put(userId, user);
 			}
 			
-			Long permissionId = rs.getLong("PERMISSION_ID");
-			  if (permissionId > 0) {
+				  permissionId = rs.getLong("PERMISSION_ID");
 				  Permission permission = new Permission();
 				  permission.setPermissionId(permissionId);
 				  permission.setPermissionName(rs.getString("PERMISSION_NAME"));
-				  List<Permission> permissions = new ArrayList<Permission>();
+				  permissions = new ArrayList<Permission>();
 				  permissions.add(permission);
 				  user.setSeparatePermissionsList(permissions);
-			  }
+				  
 		}
 		return new ArrayList<User>(map.values());
 	}

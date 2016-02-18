@@ -2,11 +2,15 @@ INSERT INTO USERS VALUES (1, 'user1', 'user1', 'user1', 'user1@user.com');
 INSERT INTO USERS VALUES (2, 'user2', 'user2', 'user2', 'user2@user.com');
 INSERT INTO USERS VALUES (3, 'user3', 'user3', 'user3', 'user3@user.com');
 INSERT INTO USERS VALUES (4, 'user4', 'user4', 'user4', 'user4@user.com');
+INSERT INTO USERS VALUES (5, 'user5', 'user5', 'user5', 'user5@user.com');
+INSERT INTO USERS VALUES (6, 'user6', 'user6', 'user6', 'user6@user.com');
 
 INSERT INTO PERMISSIONS VALUES (1, 'createRole');
 INSERT INTO PERMISSIONS VALUES (2, 'readRole');
 INSERT INTO PERMISSIONS VALUES (3, 'updateRole');
 INSERT INTO PERMISSIONS VALUES (4, 'deleteRole');
+INSERT INTO PERMISSIONS VALUES (5, 'createUser');
+INSERT INTO PERMISSIONS VALUES (6, 'deleteUser');
 
 INSERT INTO PERMISSION_GROUPS VALUES (1, 'permGroup-admin');
 INSERT INTO PERMISSION_GROUPS VALUES (2, 'permGroup-role-manager');

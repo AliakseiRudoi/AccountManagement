@@ -31,7 +31,7 @@ public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissio
 	
 	public static final String SQL_BATCH_LINK_PERMISSIONS_WITH_PERMISSION_GROUP = "INSERT INTO PERMISSIONS_PERMISSION_GROUPS(PERMISSION_ID, PERMISSION_GROUP_ID) VALUES (?,?)";
 	public static final String SQL_READ_PERMISSIONS_OF_PERMISSION_GROUP = "SELECT p.PERMISSION_ID, p.PERMISSION_NAME FROM PERMISSIONS_PERMISSION_GROUPS pg "
-			+ "INNER JOIN PERMISSIONS p ON pg.PERMISSION_ID = p.PERMISSION_ID WHERE PERMISSION_GROUP_ID=?";
+			+ "INNER JOIN PERMISSIONS p ON pg.PERMISSION_ID = p.PERMISSION_ID WHERE pg.PERMISSION_GROUP_ID=?";
 	public static final String SQL_BATCH_DELETE_PERMISSION_GROUPS = "DELETE FROM PERMISSIONS_PERMISSION_GROUPS WHERE PERMISSION_ID = ? AND PERMISSION_GROUP_ID=?";
 	
 	
@@ -47,8 +47,7 @@ public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissio
 	public PermissionGroup read(Long permissionGroupId) throws DAOException {
 		PermissionGroup permissionGroup = (PermissionGroup) getJdbcTemplate().queryForObject(SQL_READ_PERMISSION_GROUPS,
 				new Object[] { permissionGroupId }, new BeanPropertyRowMapper(PermissionGroup.class));
-		PermissionGroup permGroup = mapToSinglePermission(permissionGroup);
-		return permGroup;
+		return permissionGroup;
 	}
 
 	public void update(PermissionGroup permissionGroup) throws DAOException {
@@ -100,27 +99,7 @@ public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissio
 	public List<PermissionGroup> getAllPermissionGroups() throws DAOException {
 		List<PermissionGroup> permissionGroups = getJdbcTemplate().query(SQL_SELECT_ALL_PERMISSION_GROUPS,
 				new BeanPropertyRowMapper(PermissionGroup.class));
-		List<PermissionGroup> groups = mapToPermissions(permissionGroups);
-		return groups;
-	}
-	
-	private List<PermissionGroup> mapToPermissions(List<PermissionGroup> permissionGroupsList) {
-		List<PermissionGroup> permissionGroups = permissionGroupsList;
-		for (PermissionGroup permissionGroup : permissionGroups) {
-			List<Permission> permissions = getJdbcTemplate().query(SQL_READ_PERMISSIONS_OF_PERMISSION_GROUP,
-					new Object[] { permissionGroup.getPermissionGroupId() }, new BeanPropertyRowMapper(Permission.class));
-			permissionGroup.setPermissionsList(permissions);
-		}
 		return permissionGroups;
 	}
 	
-	private PermissionGroup mapToSinglePermission(PermissionGroup permissionGroup) {
-		PermissionGroup permGroup = permissionGroup;
-		List<Permission> permissions = getJdbcTemplate().query(SQL_READ_PERMISSIONS_OF_PERMISSION_GROUP,
-				new Object[] { permGroup.getPermissionGroupId() }, new BeanPropertyRowMapper(Permission.class));
-		permGroup.setPermissionsList(permissions);
-		
-		return permGroup;
-	}
-
 }

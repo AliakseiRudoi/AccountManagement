@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -73,7 +74,7 @@ public class UserDAOTest {
 		assertEquals(expectedUser.getFirstName(), resultUser.getFirstName());
 	}
 	
-	@Test 
+	@Test (expected=EmptyResultDataAccessException.class)
 	public void deleteUserTest() throws DAOException {
 		User resultUser = null; 
 		
@@ -99,6 +100,7 @@ public class UserDAOTest {
 	public void readExistItemsTest() throws DAOException {
 		List<Role> resultRolesList = new ArrayList<Role>();
 		resultRolesList = userDAO.readExistItems(1L);
+
 		assertFalse(resultRolesList.isEmpty());
 	}
 	
@@ -132,6 +134,7 @@ public class UserDAOTest {
 	public void readExistSeparatePermissionsTest() throws DAOException {
 		List<Permission> resultPermissionsList = new ArrayList<Permission>();
 		resultPermissionsList = userDAO.readExistSeparatePermissions(1L);
+
 		assertFalse(resultPermissionsList.isEmpty());
 	}
 
