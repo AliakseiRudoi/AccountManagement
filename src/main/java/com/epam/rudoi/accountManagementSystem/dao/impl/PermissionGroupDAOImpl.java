@@ -47,6 +47,10 @@ public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissio
 	public PermissionGroup read(Long permissionGroupId) throws DAOException {
 		PermissionGroup permissionGroup = (PermissionGroup) getJdbcTemplate().queryForObject(SQL_READ_PERMISSION_GROUPS,
 				new Object[] { permissionGroupId }, new BeanPropertyRowMapper(PermissionGroup.class));
+		List<Permission> permissions = getJdbcTemplate().query(SQL_READ_PERMISSIONS_OF_PERMISSION_GROUP,
+				new Object[] { permissionGroupId }, new BeanPropertyRowMapper(Permission.class));
+		
+		permissionGroup.setPermissionsList(permissions);
 		return permissionGroup;
 	}
 

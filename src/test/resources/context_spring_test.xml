@@ -56,4 +56,14 @@
 		<property name="dataSource" ref="dataSource" /> 
 	</bean>
 
+ 	<!-- Enable Annotation based Declarative Transaction Management -->
+    <tx:annotation-driven  />
+ 
+    <!-- Creating TransactionManager Bean, since JDBC we are creating of type 
+        DataSourceTransactionManager -->
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
 </beans>

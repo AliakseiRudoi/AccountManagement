@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.rudoi.accountManagementSystem.dao.IRoleDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
@@ -31,6 +32,7 @@ public class RoleServiceImpl implements IRoleService{
 		return roleId;
 	}
 
+	@Transactional
 	public Role readRole(Long roleId) throws ServiceException {
 		Role role = null;
 		try {
@@ -50,7 +52,8 @@ public class RoleServiceImpl implements IRoleService{
 		    throw new ServiceException(e);
 		}		
 	}
-
+	
+	@Transactional
 	public void deleteRole(Long roleId) throws ServiceException {
 		try {
 			roleDAO.delete(roleId);

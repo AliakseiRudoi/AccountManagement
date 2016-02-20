@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.rudoi.accountManagementSystem.dao.IUserDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
@@ -31,6 +32,7 @@ public class UserServiceImpl implements IUserService{
 		return userId;
 	}
 
+	@Transactional
 	public User readUser(Long userId) throws ServiceException {
 		User user = null;
 		try {
@@ -51,6 +53,7 @@ public class UserServiceImpl implements IUserService{
 		}
 	}
 
+	@Transactional
 	public void deleteUser(Long userId) throws ServiceException {
 		try {
 			userDAO.delete(userId);

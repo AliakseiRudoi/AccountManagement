@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.epam.rudoi.accountManagementSystem.dao.IRoleDAO;
+import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
@@ -60,8 +61,13 @@ public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 	
 	public Role read(Long roleId) throws DAOException {
 		Role role = (Role) getJdbcTemplate().queryForObject(SQL_READ_ROLE, new Object[] { roleId }, new BeanPropertyRowMapper(Role.class));
+		List<PermissionGroup> permissionGroups = getJdbcTemplate().query(SQL_READ_PERMISSION_GROUPS_OF_ROLE,
+				new Object[] { roleId }, new BeanPropertyRowMapper(PermissionGroup.class));
+		role.setPermissionGroupList(permissionGroups);
+
 		return role;
 	}
+	
 	
 	public void update(Role role) throws DAOException {
 		getJdbcTemplate().update(SQL_UPDATE_ROLES,

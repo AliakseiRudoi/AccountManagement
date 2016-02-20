@@ -15,10 +15,6 @@ public class ContentServiceImpl implements IContentService{
 	@Autowired
 	private IContentDAO contentDAO; 
 	
-	/*public void setContentDAO(IContentDAO contentDAO) {
-		this.contentDAO = contentDAO;
-	}*/
-	
 	public Long createContent(Content content) throws ServiceException {
 
 		Long contentId = null;

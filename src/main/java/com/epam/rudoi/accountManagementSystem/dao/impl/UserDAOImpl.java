@@ -59,6 +59,13 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 	public User read(Long userId) throws DAOException {
 		User user = (User) getJdbcTemplate().queryForObject(SQL_READ_USER,
 				new Object[] { userId }, new BeanPropertyRowMapper(User.class));
+		List<Role> roles = getJdbcTemplate().query(SQL_READ_ROLES_OF_USER,
+				new Object[] { userId }, new BeanPropertyRowMapper(Role.class));
+		List<Permission> permissions = getJdbcTemplate().query(SQL_READ_SEPARATE_PERMISSIONS_OF_USER,
+				new Object[] { userId }, new BeanPropertyRowMapper(Permission.class));
+		user.setRolesList(roles);
+		user.setSeparatePermissionsList(permissions);
+		
 		return user;
 	}
 

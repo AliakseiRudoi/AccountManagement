@@ -10,5 +10,54 @@
 HELLOW! 
 </h1>
 
+
+
+
+<div id="mainLoginDiv" >
+			<form  method="post" class="cmxform" id="signupForm"
+				action="j_spring_security_check">
+				<h2 class="form-signin-heading">
+					<spring:message code="local.message.login"
+						text="default text" />
+				</h2>
+				<div class="loginFormDiv">
+				<div class="laberFormDiv">
+				 <label for="inputLogin" >
+				 <spring:message code="local.message.login" text="default text" /></label>
+				 </div>
+				 <div class="inputFormDiv">
+					<input id="inputLogin" required="true" oninput="validateLogin(this)"  class="form-control" placeholder="Login"
+					type="text" name='j_username' />
+					</div> 
+				</div>
+				<div class="loginFormDiv">
+				<div class="laberFormDiv">
+					<label for="inputPassword" >
+					<spring:message code="local.message.password" text="default text" /></label>
+				</div>
+				<div class="inputFormDiv">
+					<input oninput="validatePassword(this)"  placeholder="Password" required="required" class="form-control" type="password"
+					name='j_password' />
+					</div>
+				</div>
+				 <div id="buttonLogin">
+					<br><br>
+					<input class="submit" value="Submit" type="submit"
+					value="<spring:message code="local.button.login"
+						text="default text" />
+						</div>
+			</form>
+			<br><br>
+			<div id="notValidDivMessage">
+		${failMessage}
+		</div>
+
+	</div>
+
+
+
+
+
+
 </body>
 </html>
