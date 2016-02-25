@@ -2,6 +2,7 @@ package com.epam.rudoi.accountManagementSystem.rest.impl;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,6 +28,7 @@ public class PermissionRestImpl implements IPermissionRest{
 	private IAccountManagerFacadeService accManagerFacadeService;
 
 	@POST
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Long createPermission(Permission permission) throws ServiceException {
@@ -34,6 +36,7 @@ public class PermissionRestImpl implements IPermissionRest{
 	}
 
 	@GET
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Permission readPermission(@PathParam("id") Long permissionId) throws ServiceException {
@@ -41,6 +44,7 @@ public class PermissionRestImpl implements IPermissionRest{
 	}
 
 	@POST
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updatePermission(Permission permission) throws ServiceException {
@@ -48,12 +52,14 @@ public class PermissionRestImpl implements IPermissionRest{
 	}
 
 	@DELETE
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Path("/{id}") 
 	public void deletePermission(@PathParam("id") Long permissionId) throws ServiceException {
 		accManagerFacadeService.deletePermission(permissionId);
 	}
 
 	@GET
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Permission> getAllPermissions() throws ServiceException {
 		return accManagerFacadeService.getAllPermissions();

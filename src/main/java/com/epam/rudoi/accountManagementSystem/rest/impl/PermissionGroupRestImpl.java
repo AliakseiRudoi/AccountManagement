@@ -2,6 +2,7 @@ package com.epam.rudoi.accountManagementSystem.rest.impl;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -28,6 +29,7 @@ public class PermissionGroupRestImpl implements IPermissionGroupRest{
 	private IAccountManagerFacadeService accManagerFacadeService;
 	
 	@POST
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Long createPermissionGroup(PermissionGroup permissionGroup) throws ServiceException {
@@ -35,6 +37,7 @@ public class PermissionGroupRestImpl implements IPermissionGroupRest{
 	}
 
 	@GET
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public PermissionGroup readPermissionGroup(@PathParam("id") Long permissionGroupId) throws ServiceException {
@@ -42,6 +45,7 @@ public class PermissionGroupRestImpl implements IPermissionGroupRest{
 	}
 
 	@POST
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updatePermissionGroup(PermissionGroup permissionGroup) throws ServiceException {
@@ -49,18 +53,21 @@ public class PermissionGroupRestImpl implements IPermissionGroupRest{
 	}
 
 	@DELETE
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Path("/{id}") 
 	public void deletePermissionGroup(@PathParam("id") Long permissionGroupId) throws ServiceException {
 		accManagerFacadeService.deletePermissionGroup(permissionGroupId);
 	}
 
 	@GET
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<PermissionGroup> getAllPermissionGroups() throws ServiceException {
 		return accManagerFacadeService.getAllPermissionGroups();
 	}
 
 	@POST
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Path("/{id}/permissions/link")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void linkWithPermissions(PermissionGroup permissionGroup)
@@ -69,12 +76,14 @@ public class PermissionGroupRestImpl implements IPermissionGroupRest{
 	}
 
 	@GET
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Path("/{id}/permissions")
 	public List<Permission> readExistPermissions(@PathParam("id") Long permissionGroupId) throws ServiceException {
 		return accManagerFacadeService.readExistPermissionsOfPermissionGroup(permissionGroupId);
 	}
 
 	@DELETE
+	@RolesAllowed({"ROLE_PERMGROUPS_MANAGER"})
 	@Path("/{id}/permissions/unlink")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void unlinkWithPermissions(PermissionGroup permissionGroup)

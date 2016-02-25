@@ -1,7 +1,7 @@
-INSERT INTO USERS VALUES (1, 'user1', 'user1', 'user1', 'user1@user.com');
-INSERT INTO USERS VALUES (2, 'user2', 'user2', 'user2', 'user2@user.com');
-INSERT INTO USERS VALUES (3, 'user3', 'user3', 'user3', 'user3@user.com');
-INSERT INTO USERS VALUES (4, 'user4', 'user4', 'user4', 'user4@user.com');
+INSERT INTO USERS VALUES (1, 'user1', 'user1', 'user1', 'user1@user.com', 'aaa', 1);
+INSERT INTO USERS VALUES (2, 'user2', 'user2', 'user2', 'user2@user.com', 'aaa', 1);
+INSERT INTO USERS VALUES (3, 'user3', 'user3', 'user3', 'user3@user.com', 'aaa', 1);
+INSERT INTO USERS VALUES (4, 'user4', 'user4', 'user4', 'user4@user.com', 'aaa', 1);
 
 INSERT INTO PERMISSIONS VALUES (1, 'createRole');
 INSERT INTO PERMISSIONS VALUES (2, 'readRole');

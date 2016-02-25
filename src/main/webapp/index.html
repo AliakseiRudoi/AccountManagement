@@ -7,13 +7,20 @@
 <body>
 
 <h1>
-HELLOW! 
+HELLO! 
 </h1>
 
 
+ <form action="j_spring_security_check" method="POST">
+        <label for="username">User Name:</label>
+        <input id="username" name="username" type="text"/>
+        <label for="password">Password:</label>
+        <input id="password" name="password" type="password"/>
+        <input type="submit" value="Log In"/>
+      </form>
 
 
-<div id="mainLoginDiv" >
+<!-- <div id="mainLoginDiv" >
 			<form  method="post" class="cmxform" id="signupForm"
 				action="j_spring_security_check">
 				<h2 class="form-signin-heading">
@@ -52,7 +59,7 @@ HELLOW!
 		${failMessage}
 		</div>
 
-	</div>
+	</div> -->
 
 
 

@@ -8,7 +8,8 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 	ext {
     log4jVersion = '1.2.17'
-    springVersion = '4.2.3.RELEASE'
+    //springVersion = '4.2.3.RELEASE'
+      springVersion = '4.1.5.RELEASE'
     dbh2Version = '1.4.190' 
 	}
 
@@ -27,19 +28,37 @@ targetCompatibility = JavaVersion.VERSION_1_8
  	//H2
  	compile "com.h2database:h2:$dbh2Version"
  
+ 	//Annotations Api
+	compile "javax.annotation:jsr250-api:1.0"
+
  	// Spring
     compile "org.springframework:spring-beans:$springVersion"
     compile "org.springframework:spring-context:$springVersion"
     compile "org.springframework:spring-core:$springVersion"
     compile "org.springframework:spring-jdbc:$springVersion"
-    compile "org.springframework:spring-web:$springVersion"
+    
+    compile ('org.springframework.security.oauth:spring-security-oauth2:1.0.5.RELEASE') {exclude group: 'org.springframework', module: 'spring-asm'}
+    compile "org.springframework.security:spring-security-core:3.2.3.RELEASE"
+    compile	"org.springframework.security:spring-security-config:3.2.3.RELEASE"
+    compile	"org.springframework.security:spring-security-web:3.2.3.RELEASE"
     
     //Jersey
-    compile "com.sun.jersey:jersey-json:1.8"
+    compile "com.sun.jersey:jersey-json:1.19"
     //compile files('com/sun/jersey/jersey-clien/1.8/jersey-clien-1.8.jar')
-	compile "com.sun.jersey:jersey-client:1.8"
-	compile "com.sun.jersey:jersey-server:1.8"
-	compile "com.sun.jersey.contribs:jersey-spring:1.8"
+	compile "com.sun.jersey:jersey-client:1.19"
+	compile "com.sun.jersey:jersey-server:1.19"
+	compile "com.sun.jersey.contribs:jersey-spring:1.19"
+	
+	//Jackson
+	compile "org.codehaus.jackson:jackson-jaxrs:1.9.13"
+	compile	"org.codehaus.jackson:jackson-xc:1.9.13"
+	compile	"org.codehaus.jackson:jackson-core-asl:1.9.13"
+	compile	"org.codehaus.jackson:jackson-mapper-asl:1.9.13"
+	
+	compile "com.fasterxml.jackson.core:jackson-core:2.6.3"
+	compile "com.fasterxml.jackson.core:jackson-databind:2.6.3"
+	compile "com.fasterxml.jackson.core:jackson-annotations:2.6.3"
+	
 	
 	//Testing
 	testCompile group: 'junit', name: 'junit', version: '4.+'

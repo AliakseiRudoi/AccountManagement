@@ -1,5 +1,6 @@
 package com.epam.rudoi.accountManagementSystem.rest.impl;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,6 +26,7 @@ public class ContentRestImpl implements IContentRest{
 	private IAccountManagerFacadeService accManagerFacadeService;
 	
 	@POST
+	@RolesAllowed({"ROLE_CONTENT_MANAGER"})
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Long createContent(Content content) throws ServiceException {
@@ -32,6 +34,7 @@ public class ContentRestImpl implements IContentRest{
 	}
 
 	@GET
+	@RolesAllowed({"ROLE_CONTENT_MANAGER"})
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Content readContent(@PathParam("id") Long contentId) throws ServiceException {
@@ -39,6 +42,7 @@ public class ContentRestImpl implements IContentRest{
 	}
 
 	@POST
+	@RolesAllowed({"ROLE_CONTENT_MANAGER"})
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateContent(Content content) throws ServiceException {
@@ -46,6 +50,7 @@ public class ContentRestImpl implements IContentRest{
 	}
 
 	@DELETE
+	@RolesAllowed({"ROLE_CONTENT_MANAGER"})
 	@Path("/{id}") 
 	public void deleteContent(@PathParam("id") Long contentId) throws ServiceException {
 		accManagerFacadeService.deleteContent(contentId);
