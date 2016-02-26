@@ -12,7 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.core.Context;
@@ -33,14 +32,8 @@ public class UserRestImpl implements IUserRest{
 	@Autowired
 	private IAccountManagerFacadeService accManagerFacadeService;
 	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getAllUsers() throws ServiceException {
-		return accManagerFacadeService.getAllUsers();
-	}
-	
 	@POST
-	@RolesAllowed({"ROLE_USER_MANAGER"})
+	@RolesAllowed({"permission-create-user"})
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Long createUser(User user) throws ServiceException {
@@ -48,8 +41,7 @@ public class UserRestImpl implements IUserRest{
 	}
 
 	@GET
-	@RolesAllowed({"ROLE_USER_MANAGER"})
-	@Secured("ROLE_ADMIN")
+	@RolesAllowed({"permission-read-user"})
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public User readUser(@PathParam("id") Long userId) throws ServiceException {
@@ -57,7 +49,7 @@ public class UserRestImpl implements IUserRest{
 	}
 
 	@POST
-	@RolesAllowed({"ROLE_USER_MANAGER"})
+	@RolesAllowed({"permission-update-user"})
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateUser(User user) throws ServiceException {
@@ -65,14 +57,21 @@ public class UserRestImpl implements IUserRest{
 	}
 
 	@DELETE
-	@RolesAllowed({"ROLE_USER_MANAGER"})
+	@RolesAllowed({"permission-delete-user"})
 	@Path("/{id}") 
 	public void deleteUser(@PathParam("id") Long userId) throws ServiceException {
 		accManagerFacadeService.deleteUser(userId);
 	}
+	
+	@GET
+	@RolesAllowed({"permission-read-all-users"})
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<User> getAllUsers() throws ServiceException {
+		return accManagerFacadeService.getAllUsers();
+	}
 
 	@POST
-	@RolesAllowed({"ROLE_USER_MANAGER"})
+	@RolesAllowed({"permission-link-user-with-roles"})
 	@Path("/{id}/roles/link")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void linkWithRoles(User user) throws ServiceException {
@@ -80,7 +79,7 @@ public class UserRestImpl implements IUserRest{
 	}
 
 	@GET
-	@RolesAllowed({"ROLE_USER_MANAGER"})
+	@RolesAllowed({"permission-read-exist-roles-of-user"})
 	@Path("/{id}/roles")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Role> readExistRoles(@PathParam("id") Long userId) throws ServiceException {
@@ -88,7 +87,7 @@ public class UserRestImpl implements IUserRest{
 	}
 
 	@POST
-	@RolesAllowed({"ROLE_USER_MANAGER"})
+	@RolesAllowed({"permission-unlink-user-with-roles"})
 	@Path("/{id}/roles/unlink")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void unlinkWithRoles(User user) throws ServiceException {
@@ -96,7 +95,7 @@ public class UserRestImpl implements IUserRest{
 	}
 
 	@POST
-	@RolesAllowed({"ROLE_USER_MANAGER"})
+	@RolesAllowed({"permission-link-user-with-separate-permissions"})
 	@Path("/{id}/separatepermissions/link")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void linkWithSeparatePermissions(User user) throws ServiceException {
@@ -104,7 +103,7 @@ public class UserRestImpl implements IUserRest{
 	}
 
 	@GET
-	@RolesAllowed({"ROLE_USER_MANAGER"})
+	@RolesAllowed({"permission-read-exist-separate-permissions-of-user"})
 	@Path("/{id}/separatepermissions")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Permission> readExistSeparatePermissions(@PathParam("id") Long userId) throws ServiceException {
@@ -112,7 +111,7 @@ public class UserRestImpl implements IUserRest{
 	}
 
 	@POST
-	@RolesAllowed({"ROLE_USER_MANAGER"})
+	@RolesAllowed({"permission-unlink-user-with-separate-permissions"})
 	@Path("/{id}/separatepermissions/unlink")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void unlinkWithSeparatePermissions(User user) throws ServiceException {

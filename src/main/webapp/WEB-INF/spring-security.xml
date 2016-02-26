@@ -24,8 +24,6 @@
     <access-denied-handler ref="oauthAccessDeniedHandler"/>
 </http>
 
-<!-- "hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_CONTENT_MANAGER')" -->
-
 <!-- Protected resources -->
 <http pattern="/rest/**"
       create-session="never"
@@ -92,8 +90,22 @@
                            users-by-username-query=
                                    "select USER_NAME,PASSWORD,ENABLED from USERS where USER_NAME = ?"
                            authorities-by-username-query=
-                                   "SELECT U.USER_NAME, R.ROLE_NAME FROM USERS U INNER JOIN USERS_ROLES UR ON U.USER_ID = UR.USER_ID INNER JOIN ROLES R ON R.ROLE_ID = UR.ROLE_ID WHERE U.USER_NAME = ?" /> 
+	"SELECT U.USER_NAME, P.PERMISSION_NAME FROM USERS U INNER JOIN USERS_ROLES UR ON U.USER_ID = UR.USER_ID
+	 INNER JOIN ROLES_PERMISSION_GROUPS RPG ON RPG.ROLE_ID = UR.ROLE_ID
+	 INNER JOIN PERMISSIONS_PERMISSION_GROUPS PPG ON PPG.PERMISSION_GROUP_ID = RPG.PERMISSION_GROUP_ID
+	 INNER JOIN PERMISSIONS P ON P.PERMISSION_ID = PPG.PERMISSION_ID
+	 WHERE U.USER_NAME = ?"
+                                    /> 
+                                    
     </authentication-provider> 
+
+<!-- "SELECT U.USER_NAME, R.ROLE_NAME FROM USERS U INNER JOIN USERS_ROLES UR ON U.USER_ID = UR.USER_ID INNER JOIN ROLES R ON R.ROLE_ID = UR.ROLE_ID WHERE U.USER_NAME = ?" -->
+
+<!-- "SELECT U.USER_NAME, P.PERMISSION_NAME FROM USERS U INNER JOIN USERS_ROLES UR ON U.USER_ID = UR.USER_ID
+	 INNER JOIN ROLES_PERMISSION_GROUPS RPG ON RPG.ROLE_ID = UR.ROLE_ID
+	 INNER JOIN PERMISSIONS_PERMISSION_GROUPS PPG ON PPG.PERMISSION_GROUP_ID = RPG.PREMISSION_GROUP_ID
+	 INNER JOIN PERMISSIONS P ON P.PERMISSION_ID = PPG.PERMISSION_ID
+	 WHERE U.USER_NAME = ?" -->
     
 </authentication-manager>
 
@@ -147,7 +159,7 @@
     <oauth:client client-id="Xapp"
                   authorized-grant-types="password,authorization_code,refresh_token,implicit,redirect"
                   authorities="ROLE_ADMIN"
-                  redirect-uri="/user/1"
+                  redirect-uri="/"
                   scope="read,write,trust"
                   access-token-validity="30"
                   refresh-token-validity="100000000"/>

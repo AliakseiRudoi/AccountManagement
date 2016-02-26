@@ -13,10 +13,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 
-import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
@@ -31,7 +29,7 @@ public class RoleRestImpl implements IRoleRest{
 	private IAccountManagerFacadeService accManagerFacadeService;
 	
 	@POST
-	@RolesAllowed({"ROLE_ROLE_MANAGER"})
+	@RolesAllowed({"permission-create-role"})
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Long createRole(Role role) throws ServiceException {
@@ -39,8 +37,7 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@GET
-	@RolesAllowed({"ROLE_ROLE_MANAGER"})
-	@Secured("role-manager")
+	@RolesAllowed({"permission-read-role"})
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Role readRole(@PathParam("id") Long roleId) throws ServiceException {
@@ -48,7 +45,7 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@POST
-	@RolesAllowed({"ROLE_ROLE_MANAGER"})
+	@RolesAllowed({"permission-update-role"})
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateRole(Role role) throws ServiceException {
@@ -56,21 +53,21 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@DELETE
-	@RolesAllowed({"ROLE_ROLE_MANAGER"})
+	@RolesAllowed({"permission-delete-role"})
 	@Path("/{id}") 
 	public void deleteRole(@PathParam("id") Long roleId) throws ServiceException {
 		accManagerFacadeService.deleteRole(roleId);
 	}
 
 	@GET
-	@RolesAllowed({"ROLE_ROLE_MANAGER"})
+	@RolesAllowed({"permission-read-all-roles"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Role> getAllRoles() throws ServiceException {
 		return accManagerFacadeService.getAllRoles();
 	}
 
 	@POST
-	@RolesAllowed({"ROLE_ROLE_MANAGER"})
+	@RolesAllowed({"permission-link-role-with-permission-groups"})
 	@Path("/{id}/permissiongroups/link")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void linkWithPermissionGroups(Role role) throws ServiceException {
@@ -78,7 +75,7 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@GET
-	@RolesAllowed({"ROLE_ROLE_MANAGER"})
+	@RolesAllowed({"permission-read-exist-permission-groups-of-role"})
 	@Path("/{id}/permissiongroups")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<PermissionGroup> readExistPermissiongroups(@PathParam("id") Long roleId) throws ServiceException {
@@ -86,7 +83,7 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@POST
-	@RolesAllowed({"ROLE_ROLE_MANAGER"})
+	@RolesAllowed({"permission-unlink-role-with-permission-groups"})
 	@Path("/{id}/permissiongroups/unlink")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void unlinkWithPermissionGroups(Role role) throws ServiceException {

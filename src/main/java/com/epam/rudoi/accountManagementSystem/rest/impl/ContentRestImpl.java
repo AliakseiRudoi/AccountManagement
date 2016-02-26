@@ -26,7 +26,7 @@ public class ContentRestImpl implements IContentRest{
 	private IAccountManagerFacadeService accManagerFacadeService;
 	
 	@POST
-	@RolesAllowed({"ROLE_CONTENT_MANAGER"})
+	@RolesAllowed({"permission-create-content"})
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Long createContent(Content content) throws ServiceException {
@@ -34,7 +34,7 @@ public class ContentRestImpl implements IContentRest{
 	}
 
 	@GET
-	@RolesAllowed({"ROLE_CONTENT_MANAGER"})
+	@RolesAllowed({"permission-read-content"})
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Content readContent(@PathParam("id") Long contentId) throws ServiceException {
@@ -42,7 +42,7 @@ public class ContentRestImpl implements IContentRest{
 	}
 
 	@POST
-	@RolesAllowed({"ROLE_CONTENT_MANAGER"})
+	@RolesAllowed({"permission-update-content"})
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateContent(Content content) throws ServiceException {
@@ -50,7 +50,7 @@ public class ContentRestImpl implements IContentRest{
 	}
 
 	@DELETE
-	@RolesAllowed({"ROLE_CONTENT_MANAGER"})
+	@RolesAllowed({"permission-delete-content"})
 	@Path("/{id}") 
 	public void deleteContent(@PathParam("id") Long contentId) throws ServiceException {
 		accManagerFacadeService.deleteContent(contentId);
