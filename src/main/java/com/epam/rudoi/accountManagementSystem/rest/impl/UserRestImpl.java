@@ -39,50 +39,6 @@ public class UserRestImpl implements IUserRest{
 		return accManagerFacadeService.getAllUsers();
 	}
 	
-	@GET
-	@RolesAllowed({"ROLE_ADMIN"})
-	@Path("/test1")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String test1(@Context SecurityContext sc) throws ServiceException {
-		String str = "ROLE_ADMIN";
-		return str;
-		
-		/*if (sc.isUserInRole("ROLE_ADMIN")) {
-			return sc.getUserPrincipal().toString();
-		}
-		throw new SecurityException("User is unauthorized.");	*/
-	}
-	
-	@GET
-	@RolesAllowed({"ROLE_MANAGER"})
-	@Path("/test2")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String test2(@Context SecurityContext sc) throws ServiceException {
-		String str = "ROLE_MANAGER";
-		return str;
-		
-		/*if (sc.isUserInRole("ROLE_MANAGER")) {
-			return sc.getUserPrincipal().toString();
-		}
-		throw new SecurityException("User is unauthorized.");*/
-	}
-	
-	@GET
-	@RolesAllowed({"ROLE_CONTENT_MANAGER"})
-	@Path("/test3")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String test3(@Context SecurityContext sc) throws ServiceException {
-		String str = "ROLE_CONTENT_MANAGER";
-		return str;
-		
-		/*if (sc.isUserInRole("ROLE_CONTENT_MANAGER")) {
-			return sc.getUserPrincipal().toString();
-		}
-		throw new SecurityException("User is unauthorized.");*/
-	}
-	
-	
-	
 	@POST
 	@RolesAllowed({"ROLE_USER_MANAGER"})
 	@Consumes(MediaType.APPLICATION_JSON)
