@@ -87,7 +87,7 @@
 	<context:component-scan base-package="com.epam" /> 
 
 	 <!-- Enable Annotation based Declarative Transaction Management -->
-    <tx:annotation-driven  />
+     <tx:annotation-driven  />
      <mvc:annotation-driven />
  
     <!-- Creating TransactionManager Bean, since JDBC we are creating of type 

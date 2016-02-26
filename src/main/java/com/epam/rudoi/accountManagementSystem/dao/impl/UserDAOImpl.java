@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.rudoi.accountManagementSystem.dao.IUserDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
@@ -56,6 +57,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 		return userId;
 	}
 
+	@Transactional
 	public User read(Long userId) throws DAOException {
 		User user = (User) getJdbcTemplate().queryForObject(SQL_READ_USER,
 				new Object[] { userId }, new BeanPropertyRowMapper(User.class));
@@ -74,6 +76,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 				new Object[] { user.getFirstName(), user.getLastName(), user.getUserName(), user.getUserEmail(), user.getUserId() });
 	}
 
+	@Transactional
 	public void delete(Long userId) throws DAOException {
 		getJdbcTemplate().update(SQL_DELETE_USERS_FROM_USERS_PERMISSIONS, Long.valueOf(userId));
 		getJdbcTemplate().update(SQL_DELETE_USERS_FROM_USERS_ROLES, Long.valueOf(userId));

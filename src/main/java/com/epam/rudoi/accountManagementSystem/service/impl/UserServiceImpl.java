@@ -32,7 +32,6 @@ public class UserServiceImpl implements IUserService{
 		return userId;
 	}
 
-	@Transactional
 	public User readUser(Long userId) throws ServiceException {
 		User user = null;
 		try {
@@ -53,7 +52,6 @@ public class UserServiceImpl implements IUserService{
 		}
 	}
 
-	@Transactional
 	public void deleteUser(Long userId) throws ServiceException {
 		try {
 			userDAO.delete(userId);

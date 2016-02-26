@@ -14,7 +14,6 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
@@ -74,11 +73,11 @@ public class RoleDAOTest {
 	public void linkWithItemsTest() throws DAOException {
 		List<PermissionGroup> expectedPermissionGroupList = new ArrayList<PermissionGroup>();
 		List<PermissionGroup> resultPermissionGroupList = null;
-		PermissionGroup permissionGroup = new PermissionGroup(3L, "permGroup-content-manage");
+		PermissionGroup permissionGroup = new PermissionGroup(5L, "permission-group-manage");
 		expectedPermissionGroupList.add(permissionGroup);
 		
 		roleDAO.linkWithItems(3L, expectedPermissionGroupList);
-		resultPermissionGroupList = roleDAO.readExistItems(3L);
+		resultPermissionGroupList = roleDAO.readExistItems(5L);
 		assertEquals(expectedPermissionGroupList, resultPermissionGroupList);
 	}
 	

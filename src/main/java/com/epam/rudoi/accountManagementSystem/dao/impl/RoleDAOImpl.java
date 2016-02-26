@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.rudoi.accountManagementSystem.dao.IRoleDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
@@ -59,6 +60,7 @@ public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 		return roleId;
 	}
 	
+	@Transactional
 	public Role read(Long roleId) throws DAOException {
 		Role role = (Role) getJdbcTemplate().queryForObject(SQL_READ_ROLE, new Object[] { roleId }, new BeanPropertyRowMapper(Role.class));
 		List<PermissionGroup> permissionGroups = getJdbcTemplate().query(SQL_READ_PERMISSION_GROUPS_OF_ROLE,
@@ -74,6 +76,7 @@ public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 				new Object[] { role.getRoleName(), role.getRoleId() });
 	}
 
+	@Transactional
 	public void delete(Long roleId) throws DAOException {
 		getJdbcTemplate().update(SQL_DELETE_ROLES_FROM_USERS_ROLES, Long.valueOf(roleId));
 		getJdbcTemplate().update(SQL_DELETE_ROLES_FROM_ROLES_PERMISSION_GROUPS, Long.valueOf(roleId));

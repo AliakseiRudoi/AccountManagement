@@ -88,11 +88,14 @@ public class UserDAOTest {
 		
 		List<Role> expectedRolesList = new ArrayList<Role>();
 		List<Role> resultRolesList = null;
-		Role role = new Role(3L, "content-manager");
+		Role role = new Role(6L, "ROLE_USER");
 		expectedRolesList.add(role);
-		userDAO.linkWithItems(4L, expectedRolesList);
+		expectedRolesList.add(role);
+		List<Role> rolesList = new ArrayList<Role>();
+		rolesList.add(role);
+		userDAO.linkWithItems(6L, rolesList );
 		
-		resultRolesList = userDAO.readExistItems(4L);
+		resultRolesList = userDAO.readExistItems(6L);
 		assertEquals(expectedRolesList, resultRolesList);
 	}
 	
@@ -122,7 +125,7 @@ public class UserDAOTest {
 	public void linkWithSeparatePermissionsTest() throws DAOException {
 		List<Permission> expectedPermissionsList = new ArrayList<Permission>();
 		List<Permission> resultPermissionsList = null;
-		Permission permission = new Permission(3L, "updateRole");
+		Permission permission = new Permission(3L, "permission-update-user");
 		expectedPermissionsList.add(permission);
 		
 		userDAO.linkWithSeparatePermissions(4L, expectedPermissionsList);

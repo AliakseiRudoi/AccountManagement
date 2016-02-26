@@ -47,20 +47,23 @@ public class PermissionGroupDAOTest {
 	
 	@Test
 	public void readPermissionGroupTest() throws DAOException {
-		PermissionGroup expectedPermissionGroup = new PermissionGroup(3L, "permGroup-content-manage");
+		List<Permission> permissions = new ArrayList<Permission>();
+		PermissionGroup expectedPermissionGroup = new PermissionGroup(6L, "permGroup-role-managerUpdated", permissions);
+		
+		
 		PermissionGroup resultPermissionGroup = null;
 		
-		resultPermissionGroup = permissionGroupDAO.read(3L);
+		resultPermissionGroup = permissionGroupDAO.read(6L);
 		assertEquals(expectedPermissionGroup, resultPermissionGroup);
 	}
 	
 	@Test
 	public void updatePermissionGroupTest() throws DAOException {
-		PermissionGroup expectedPermissionGroup = new PermissionGroup(2L, "permGroup-role-managerUpdated");
+		PermissionGroup expectedPermissionGroup = new PermissionGroup(6L, "permGroup-role-managerUpdated", new ArrayList<Permission>());
 		PermissionGroup resultPermissionGroup = null;
 		
 		permissionGroupDAO.update(expectedPermissionGroup);
-		resultPermissionGroup = permissionGroupDAO.read(2L);
+		resultPermissionGroup = permissionGroupDAO.read(6L);
 		assertEquals(expectedPermissionGroup, resultPermissionGroup);
 	}
 	
@@ -77,14 +80,14 @@ public class PermissionGroupDAOTest {
 	public void linkWithItemsTest() throws DAOException {
 		List<Permission> expectedPermissionsList = new ArrayList<Permission>();
 		List<Permission> resultPermissionsList = null;
-		Permission permission = new Permission(1L, "createRole");
-		Permission permission2 = new Permission(2L, "readRole");
+		Permission permission = new Permission(1L, "permission-create-user");
+		Permission permission2 = new Permission(2L, "permission-read-user");
 		expectedPermissionsList.add(permission);
 		expectedPermissionsList.add(permission2);
 		
-		permissionGroupDAO.linkWithItems(3L, expectedPermissionsList);
-		resultPermissionsList = permissionGroupDAO.readExistItems(3L);
-	//	assertEquals(expectedPermissionsList, resultPermissionsList);
+		permissionGroupDAO.linkWithItems(6L, expectedPermissionsList);
+		resultPermissionsList = permissionGroupDAO.readExistItems(6L);
+		assertEquals(expectedPermissionsList, resultPermissionsList);
 	}
 	
 	@Test
@@ -98,13 +101,11 @@ public class PermissionGroupDAOTest {
 	public void unlinkWithItemsTestTest() throws DAOException {
 		List<Permission> permissionsList = new ArrayList<Permission>();
 		List<Permission> resultPermissionsList = null;
-		Permission permission = new Permission(1L, "createRole");
-		Permission permission2 = new Permission(2L, "readRole");
+		Permission permission = new Permission(34L, "permission-read-content");
 		permissionsList.add(permission);
-		permissionsList.add(permission2);
 		
-		permissionGroupDAO.unlinkWithItems(2L, permissionsList);
-		resultPermissionsList = permissionGroupDAO.readExistItems(2L);
+		permissionGroupDAO.unlinkWithItems(6L, permissionsList);
+		resultPermissionsList = permissionGroupDAO.readExistItems(6L);
 		assertTrue(resultPermissionsList.isEmpty());
 	}
 	

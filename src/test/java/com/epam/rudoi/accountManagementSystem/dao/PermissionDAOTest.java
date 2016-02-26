@@ -41,7 +41,7 @@ public class PermissionDAOTest {
 	
 	@Test
 	public void readPermissionTest() throws DAOException {
-		Permission expectedPermission= new Permission(3L, "updateRole");
+		Permission expectedPermission= new Permission(3L, "permission-update-user");
 		Permission resultPermission = null;
 		
 		resultPermission = permissionDAO.read(3L);

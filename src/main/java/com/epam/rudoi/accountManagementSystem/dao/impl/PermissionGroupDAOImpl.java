@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.rudoi.accountManagementSystem.dao.IPermissionGroupDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
@@ -44,6 +45,7 @@ public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissio
 		return permissionGroupId;
 	}
 
+	@Transactional
 	public PermissionGroup read(Long permissionGroupId) throws DAOException {
 		PermissionGroup permissionGroup = (PermissionGroup) getJdbcTemplate().queryForObject(SQL_READ_PERMISSION_GROUPS,
 				new Object[] { permissionGroupId }, new BeanPropertyRowMapper(PermissionGroup.class));
@@ -59,6 +61,7 @@ public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissio
 				new Object[] { permissionGroup.getPermissionGroupName(), permissionGroup.getPermissionGroupId() });
 	}
 
+	@Transactional
 	public void delete(Long permissionGroupId) throws DAOException {
 		getJdbcTemplate().update(SQL_DELETE_PERMISSION_GROUP_FROM_PERMISSIONS_PERMISSION_GROUPS, Long.valueOf(permissionGroupId));
 		getJdbcTemplate().update(SQL_DELETE_PERMISSION_GROUP_FROM_ROLES_PERMISSION_GROUPS, Long.valueOf(permissionGroupId));

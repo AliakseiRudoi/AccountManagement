@@ -32,6 +32,13 @@ public class UserRestImpl implements IUserRest{
 	@Autowired
 	private IAccountManagerFacadeService accManagerFacadeService;
 	
+	@GET
+	@Path("/test")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String test5(@Context SecurityContext sc) throws ServiceException {
+		return sc.getUserPrincipal().toString();
+	}
+	
 	@POST
 	@RolesAllowed({"permission-create-user"})
 	@Consumes(MediaType.APPLICATION_JSON)

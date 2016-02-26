@@ -31,7 +31,6 @@ public class PermissionGroupServiceImpl implements IPermissionGroupService{
 		return permissionGroupId;
 	}
 
-	@Transactional
 	public PermissionGroup readPermissionGroup(Long permissionGroupId) throws ServiceException {
 		PermissionGroup permissionGroup = null;
 		try {
@@ -52,7 +51,6 @@ public class PermissionGroupServiceImpl implements IPermissionGroupService{
 		}
 	}
 
-	@Transactional
 	public void deletePermissionGroup(Long permissionGroupId) throws ServiceException {
 		try {
 			permissionGroupDAO.delete(permissionGroupId);

@@ -32,7 +32,6 @@ public class RoleServiceImpl implements IRoleService{
 		return roleId;
 	}
 
-	@Transactional
 	public Role readRole(Long roleId) throws ServiceException {
 		Role role = null;
 		try {
@@ -53,7 +52,6 @@ public class RoleServiceImpl implements IRoleService{
 		}		
 	}
 	
-	@Transactional
 	public void deleteRole(Long roleId) throws ServiceException {
 		try {
 			roleDAO.delete(roleId);
