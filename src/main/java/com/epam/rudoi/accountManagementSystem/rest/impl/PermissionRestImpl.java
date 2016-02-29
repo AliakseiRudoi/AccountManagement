@@ -28,7 +28,7 @@ public class PermissionRestImpl implements IPermissionRest{
 	private IAccountManagerFacadeService accManagerFacadeService;
 
 	@POST
-	@RolesAllowed({"permission-create-permission"})
+	@RolesAllowed({"create-permission"})
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Long createPermission(Permission permission) throws ServiceException {
@@ -36,7 +36,7 @@ public class PermissionRestImpl implements IPermissionRest{
 	}
 
 	@GET
-	@RolesAllowed({"permission-read-permission"})
+	@RolesAllowed({"read-permission"})
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Permission readPermission(@PathParam("id") Long permissionId) throws ServiceException {
@@ -44,7 +44,7 @@ public class PermissionRestImpl implements IPermissionRest{
 	}
 
 	@POST
-	@RolesAllowed({"permission-update-permission"})
+	@RolesAllowed({"update-permission"})
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updatePermission(Permission permission) throws ServiceException {
@@ -52,14 +52,14 @@ public class PermissionRestImpl implements IPermissionRest{
 	}
 
 	@DELETE
-	@RolesAllowed({"permission-delete-permission"})
+	@RolesAllowed({"delete-permission"})
 	@Path("/{id}") 
 	public void deletePermission(@PathParam("id") Long permissionId) throws ServiceException {
 		accManagerFacadeService.deletePermission(permissionId);
 	}
 
 	@GET
-	@RolesAllowed({"permission-read-all-permissions"})
+	@RolesAllowed({"read-all-permissions"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Permission> getAllPermissions() throws ServiceException {
 		return accManagerFacadeService.getAllPermissions();

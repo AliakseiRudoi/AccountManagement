@@ -29,7 +29,7 @@ public class RoleRestImpl implements IRoleRest{
 	private IAccountManagerFacadeService accManagerFacadeService;
 	
 	@POST
-	@RolesAllowed({"permission-create-role"})
+	@RolesAllowed({"create-role"})
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Long createRole(Role role) throws ServiceException {
@@ -37,7 +37,7 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@GET
-	@RolesAllowed({"permission-read-role"})
+	@RolesAllowed({"read-role"})
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Role readRole(@PathParam("id") Long roleId) throws ServiceException {
@@ -45,7 +45,7 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@POST
-	@RolesAllowed({"permission-update-role"})
+	@RolesAllowed({"update-role"})
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateRole(Role role) throws ServiceException {
@@ -53,21 +53,21 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@DELETE
-	@RolesAllowed({"permission-delete-role"})
+	@RolesAllowed({"delete-role"})
 	@Path("/{id}") 
 	public void deleteRole(@PathParam("id") Long roleId) throws ServiceException {
 		accManagerFacadeService.deleteRole(roleId);
 	}
 
 	@GET
-	@RolesAllowed({"permission-read-all-roles"})
+	@RolesAllowed({"read-all-roles"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Role> getAllRoles() throws ServiceException {
 		return accManagerFacadeService.getAllRoles();
 	}
 
 	@POST
-	@RolesAllowed({"permission-link-role-with-permission-groups"})
+	@RolesAllowed({"link-role-with-permission-groups"})
 	@Path("/{id}/permissiongroups/link")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void linkWithPermissionGroups(Role role) throws ServiceException {
@@ -75,7 +75,7 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@GET
-	@RolesAllowed({"permission-read-exist-permission-groups-of-role"})
+	@RolesAllowed({"read-exist-permission-groups-of-role"})
 	@Path("/{id}/permissiongroups")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<PermissionGroup> readExistPermissiongroups(@PathParam("id") Long roleId) throws ServiceException {
@@ -83,7 +83,7 @@ public class RoleRestImpl implements IRoleRest{
 	}
 
 	@POST
-	@RolesAllowed({"permission-unlink-role-with-permission-groups"})
+	@RolesAllowed({"unlink-role-with-permission-groups"})
 	@Path("/{id}/permissiongroups/unlink")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void unlinkWithPermissionGroups(Role role) throws ServiceException {

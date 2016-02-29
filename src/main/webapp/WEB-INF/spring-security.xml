@@ -77,12 +77,6 @@
 </authentication-manager>
 
 <authentication-manager alias="authenticationManager" xmlns="http://www.springframework.org/schema/security">
- <!--    <authentication-provider>
-        <user-service id="userDetailsService">
-            <user name="admin" password="password" authorities="ROLE_ADMIN"/>
-            <user name="manager" password="password" authorities="ROLE_MANAGER"/>
-        </user-service>
-    </authentication-provider>  -->
     
    <authentication-provider>
          <!--  <password-encoder hash="md5"/> -->  
@@ -99,14 +93,6 @@
                                     
     </authentication-provider> 
 
-<!-- "SELECT U.USER_NAME, R.ROLE_NAME FROM USERS U INNER JOIN USERS_ROLES UR ON U.USER_ID = UR.USER_ID INNER JOIN ROLES R ON R.ROLE_ID = UR.ROLE_ID WHERE U.USER_NAME = ?" -->
-
-<!-- "SELECT U.USER_NAME, P.PERMISSION_NAME FROM USERS U INNER JOIN USERS_ROLES UR ON U.USER_ID = UR.USER_ID
-	 INNER JOIN ROLES_PERMISSION_GROUPS RPG ON RPG.ROLE_ID = UR.ROLE_ID
-	 INNER JOIN PERMISSIONS_PERMISSION_GROUPS PPG ON PPG.PERMISSION_GROUP_ID = RPG.PREMISSION_GROUP_ID
-	 INNER JOIN PERMISSIONS P ON P.PERMISSION_ID = PPG.PERMISSION_ID
-	 WHERE U.USER_NAME = ?" -->
-    
 </authentication-manager>
 
 <bean id="clientDetailsUserService"
