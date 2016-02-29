@@ -4,6 +4,7 @@ INSERT INTO USERS VALUES (3, 'user3', 'user3', 'role-manager', 'user3@user.com',
 INSERT INTO USERS VALUES (4, 'user4', 'user4', 'perm-groups-manager', 'user4@user.com', 'password', 1);
 INSERT INTO USERS VALUES (5, 'user5', 'user5', 'content_manager', 'user4@user.com', 'password', 1);
 INSERT INTO USERS VALUES (6, 'user6', 'user5', 'user', 'user4@user.com', 'password', 1);
+INSERT INTO USERS VALUES (7, 'user6', 'user5', 'user-for-deletion', 'user4@user.com', 'password', 1);
 
 INSERT INTO PERMISSION_GROUPS VALUES (1, 'permission-group-admin');
 INSERT INTO PERMISSION_GROUPS VALUES (2, 'permission-group-role-manager');
@@ -11,6 +12,7 @@ INSERT INTO PERMISSION_GROUPS VALUES (3, 'permission-group-content-manage');
 INSERT INTO PERMISSION_GROUPS VALUES (4, 'permission-group-moderation-manage');
 INSERT INTO PERMISSION_GROUPS VALUES (5, 'permission-group-manage');
 INSERT INTO PERMISSION_GROUPS VALUES (6, 'permission-group-user');
+INSERT INTO PERMISSION_GROUPS VALUES (7, 'permission-group-user');
 
 INSERT INTO CONTENT VALUES (1, 'mkyong', 'mkyong');
 INSERT INTO CONTENT VALUES (2, 'alex', 'alex');

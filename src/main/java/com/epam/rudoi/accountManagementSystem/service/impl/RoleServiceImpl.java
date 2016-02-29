@@ -85,7 +85,7 @@ public class RoleServiceImpl implements IRoleService{
 	public List<PermissionGroup> readExistPermissiongroups(Long roleId) throws ServiceException {
 		List<PermissionGroup> permissionGroups = null;
 		try {
-			roleDAO.readExistItems(roleId);
+			permissionGroups = roleDAO.readExistItems(roleId);
 		} catch (DAOException e) {
 			LOGGER.error("Reading exist permission groups for role "+ roleId +" exeption", e);
 		    throw new ServiceException(e);
