@@ -23,6 +23,8 @@ To build .war after clone launch -gradle clean assemble.
 Interfaces - src\main\java\com\epam\rudoi\accountManagementSystem\dao
 
 Implementation -  src\main\java\com\epam\rudoi\accountManagementSystem\dao\impl
+
+Custom RowMappers-  src\main\java\com\epam\rudoi\accountManagementSystem\dao\impl\util
 ###Service layer 
 Interfaces - src\main\java\com\epam\rudoi\accountManagementSystem\service
 
