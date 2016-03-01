@@ -1,4 +1,5 @@
 Account Management System 
+
 This project provides functionality for management accounts. Every user has scope of roles, which include scope of permission groups with permission’s scope. User admin must has all exist roles, permission groups and permissions. 
 App implements Rest API and provides security for every rest end point via spring security oauth2. All rest end points are securing by checking users Granted Authorities scope via @RolesAllowed annotation. Users Granted Authorities scope include permissions scope. 
 
