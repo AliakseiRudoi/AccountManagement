@@ -22,8 +22,10 @@ Implementation -  src\main\java\com\epam\rudoi\accountManagementSystem\dao\impl
 ###Service layer 
 Interfaces - src\main\java\com\epam\rudoi\accountManagementSystem\service
 Implementation - src\main\java\com\epam\rudoi\accountManagementSystem\service\impl
-###Entity - src\main\java\com\epam\rudoi\accountManagementSystem\entity
-###Exceptions - src\main\java\com\epam\rudoi\accountManagementSystem\exceptions
+###Entity 
+Entity - src\main\java\com\epam\rudoi\accountManagementSystem\entity
+###Exceptions 
+Exceptions - src\main\java\com\epam\rudoi\accountManagementSystem\exceptions
 ###Restful 
 Interfaces - src\main\java\com\epam\rudoi\accountManagementSystem\rest
 Implementation - src\main\java\com\epam\rudoi\accountManagementSystem\rest\impl
@@ -31,6 +33,7 @@ Implementation - src\main\java\com\epam\rudoi\accountManagementSystem\rest\impl
 Configuration xml - src\main\webapp\WEB-INF
 Context xml, logger configuration, db create-insert - src\main\resources
 
-###Dao unit tests - src\test\java\com\epam\rudoi\accountManagementSystem\dao
-###Service unit tests - src\test\java\com\epam\rudoi\accountManagementSystem\service
+###Tests
+Dao unit tests - src\test\java\com\epam\rudoi\accountManagementSystem\dao
+Service unit tests - src\test\java\com\epam\rudoi\accountManagementSystem\service
 Test context xml, test db create-insert - src\test\resources
