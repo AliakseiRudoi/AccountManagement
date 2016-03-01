@@ -16,7 +16,7 @@ To build .war after clone launch -gradle clean assemble.
 * [Gradle](http://gradle.org/getting-started-gradle-java/)
 
 #Overview
-###Dao layer### 
+###Dao layer
 Interfaces - src\main\java\com\epam\rudoi\accountManagementSystem\dao
 Implementation -  src\main\java\com\epam\rudoi\accountManagementSystem\dao\impl
 ###Service layer 
