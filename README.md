@@ -18,9 +18,11 @@ To build .war after clone launch -gradle clean assemble.
 #Overview
 ###Dao layer
 Interfaces - src\main\java\com\epam\rudoi\accountManagementSystem\dao
+
 Implementation -  src\main\java\com\epam\rudoi\accountManagementSystem\dao\impl
 ###Service layer 
 Interfaces - src\main\java\com\epam\rudoi\accountManagementSystem\service
+
 Implementation - src\main\java\com\epam\rudoi\accountManagementSystem\service\impl
 ###Entity 
 Entity - src\main\java\com\epam\rudoi\accountManagementSystem\entity
@@ -28,6 +30,7 @@ Entity - src\main\java\com\epam\rudoi\accountManagementSystem\entity
 Exceptions - src\main\java\com\epam\rudoi\accountManagementSystem\exceptions
 ###Restful 
 Interfaces - src\main\java\com\epam\rudoi\accountManagementSystem\rest
+
 Implementation - src\main\java\com\epam\rudoi\accountManagementSystem\rest\impl
 
 ###Congif
