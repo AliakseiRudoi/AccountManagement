@@ -4,10 +4,13 @@ App implements Rest API and provides security for every rest end point via sprin
 
 
 #Getting Started
+
 Clone from GIT and then use Gradle (2.11 or better) and Java (1.8 or better):
+
 $ git clone ...
 
 To edit source code import source and build.gradle into your Gradle eclipce project.
+
 To build .war after clone launch -gradle clean assemble.
 
 #Additional Resources
