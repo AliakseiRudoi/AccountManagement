@@ -13,8 +13,10 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.rudoi.accountManagementSystem.dao.IPermissionGroupDAO;
+import com.epam.rudoi.accountManagementSystem.dao.impl.util.PermissionGroupRowMapper;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 
 public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissionGroupDAO {
@@ -103,9 +105,9 @@ public class PermissionGroupDAOImpl extends JdbcDaoSupport implements IPermissio
 		});
 	}
 
-	public List<PermissionGroup> getAllPermissionGroups() throws DAOException {
-		List<PermissionGroup> permissionGroups = getJdbcTemplate().query(SQL_SELECT_ALL_PERMISSION_GROUPS,
-				new BeanPropertyRowMapper(PermissionGroup.class));
+	public List<PermissionGroupWithRestLinks> getAllPermissionGroups() throws DAOException {
+		List<PermissionGroupWithRestLinks> permissionGroups = getJdbcTemplate().query(SQL_SELECT_ALL_PERMISSION_GROUPS,
+				new PermissionGroupRowMapper());
 		return permissionGroups;
 	}
 	

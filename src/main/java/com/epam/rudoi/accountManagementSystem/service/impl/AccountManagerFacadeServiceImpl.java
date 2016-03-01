@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.epam.rudoi.accountManagementSystem.entity.Content;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
+import com.epam.rudoi.accountManagementSystem.entity.RoleWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 import com.epam.rudoi.accountManagementSystem.service.IAccountManagerFacadeService;
 import com.epam.rudoi.accountManagementSystem.service.IContentService;
@@ -77,7 +80,7 @@ public class AccountManagerFacadeServiceImpl implements IAccountManagerFacadeSer
 	public void deletePermissionGroup(Long permissionGroupId) throws ServiceException {
 		permissionGroupService.deletePermissionGroup(permissionGroupId);
 	}
-	public List<PermissionGroup> getAllPermissionGroups() throws ServiceException {
+	public List<PermissionGroupWithRestLinks> getAllPermissionGroups() throws ServiceException {
 		return permissionGroupService.getAllPermissionGroups();
 	}
 	public void linkPermissionGroupWithPermissions(PermissionGroup permissionGroup) throws ServiceException {
@@ -104,7 +107,7 @@ public class AccountManagerFacadeServiceImpl implements IAccountManagerFacadeSer
 	public void deleteRole(Long roleId) throws ServiceException {
 		roleService.deleteRole(roleId);
 	}
-	public List<Role> getAllRoles() throws ServiceException {
+	public List<RoleWithRestLinks> getAllRoles() throws ServiceException {
 		return roleService.getAllRoles();
 	}
 	public void linkRoleWithPermissionGroups(Role role) throws ServiceException {
@@ -131,7 +134,7 @@ public class AccountManagerFacadeServiceImpl implements IAccountManagerFacadeSer
 	public void deleteUser(Long userId) throws ServiceException {
 		userService.deleteUser(userId);
 	}
-	public List<User> getAllUsers() throws ServiceException {
+	public List<UserWithRestLinks> getAllUsers() throws ServiceException {
 		return userService.getAllUsers();
 	}
 	public void linkUserWithRoles(User user) throws ServiceException {

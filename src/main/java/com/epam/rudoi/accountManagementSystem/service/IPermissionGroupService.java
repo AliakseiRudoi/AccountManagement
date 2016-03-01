@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 
 public interface IPermissionGroupService {
@@ -48,7 +49,7 @@ public interface IPermissionGroupService {
 	 * @return List<PermissionGroup> list of permission group  
 	 * @throws ServiceException the service exception
 	 */
-	List<PermissionGroup> getAllPermissionGroups() throws ServiceException;
+	List<PermissionGroupWithRestLinks> getAllPermissionGroups() throws ServiceException;
 	
 	/**
 	 * Associate current permission group with permissions

@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.epam.rudoi.accountManagementSystem.dao.IRoleDAO;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
+import com.epam.rudoi.accountManagementSystem.entity.RoleWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 
@@ -36,6 +37,8 @@ public class RoleServiceTest {
 	private Role roleMock;
 	@Mock
 	private List<Role> rolesMock;
+	@Mock
+	private List<RoleWithRestLinks> rolesWithLinksMock;
 	
 	@InjectMocks
 	@Autowired
@@ -86,8 +89,8 @@ public class RoleServiceTest {
 
 	@Test
 	public void getAllRolesTest() throws ServiceException, DAOException {
-		List<Role> expectedRoles = rolesMock;
-		List<Role> resultRoles = null;
+		List<RoleWithRestLinks> expectedRoles = rolesWithLinksMock;
+		List<RoleWithRestLinks> resultRoles = null;
 		when(roleDAOMock.getAllRoles()).thenReturn(expectedRoles);
 		
 		resultRoles = roleService.getAllRoles();

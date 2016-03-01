@@ -21,6 +21,7 @@ import javax.annotation.security.RolesAllowed;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 import com.epam.rudoi.accountManagementSystem.service.IAccountManagerFacadeService;
 import com.epam.rudoi.accountManagementSystem.rest.IUserRest;
@@ -73,7 +74,7 @@ public class UserRestImpl implements IUserRest{
 	@GET
 	@RolesAllowed({"read-all-users"})
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getAllUsers() throws ServiceException {
+	public List<UserWithRestLinks> getAllUsers() throws ServiceException {
 		return accManagerFacadeService.getAllUsers();
 	}
 

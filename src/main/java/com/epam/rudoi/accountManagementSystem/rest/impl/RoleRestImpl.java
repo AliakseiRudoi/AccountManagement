@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
+import com.epam.rudoi.accountManagementSystem.entity.RoleWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 import com.epam.rudoi.accountManagementSystem.service.IAccountManagerFacadeService;
 import com.epam.rudoi.accountManagementSystem.rest.IRoleRest;
@@ -62,7 +63,7 @@ public class RoleRestImpl implements IRoleRest{
 	@GET
 	@RolesAllowed({"read-all-roles"})
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Role> getAllRoles() throws ServiceException {
+	public List<RoleWithRestLinks> getAllRoles() throws ServiceException {
 		return accManagerFacadeService.getAllRoles();
 	}
 

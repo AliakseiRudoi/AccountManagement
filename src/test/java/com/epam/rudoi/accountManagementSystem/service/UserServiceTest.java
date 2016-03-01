@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.epam.rudoi.accountManagementSystem.dao.IUserDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 
@@ -36,6 +37,8 @@ public class UserServiceTest {
 	private User userMock;
 	@Mock
 	private List<User> usersMock;
+	@Mock
+	private List<UserWithRestLinks> usersWithLinkMock;
 	
 	@InjectMocks
 	@Autowired
@@ -87,8 +90,8 @@ public class UserServiceTest {
 	
 	@Test
 	public void getAllUsersTest() throws ServiceException, DAOException {
-		List<User> expectedUsers = usersMock;
-		List<User> resultUsers = null;
+		List<UserWithRestLinks> expectedUsers = usersWithLinkMock;
+		List<UserWithRestLinks> resultUsers = null;
 		when(userDAOMock.getAllUsers()).thenReturn(expectedUsers);
 		
 		resultUsers = userService.getAllUsers();

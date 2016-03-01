@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 
 /**
@@ -17,6 +18,6 @@ public interface IPermissionGroupDAO extends ICrudDAO<PermissionGroup>, IManageD
 	 * @return the permission groups list
 	 * @throws DAOException the DAO exception
 	 */
-	List<PermissionGroup> getAllPermissionGroups () throws DAOException;
+	List<PermissionGroupWithRestLinks> getAllPermissionGroups () throws DAOException;
 	
 }

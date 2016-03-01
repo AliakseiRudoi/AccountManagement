@@ -5,6 +5,7 @@ import java.util.List;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
+import com.epam.rudoi.accountManagementSystem.entity.RoleWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 
 public interface IRoleService {
@@ -49,7 +50,7 @@ public interface IRoleService {
 	 * @return List<Role> list of roles
 	 * @throws ServiceException the service exception
 	 */
-	List<Role> getAllRoles() throws ServiceException;
+	List<RoleWithRestLinks> getAllRoles() throws ServiceException;
 	
 	/**
 	 * Associate current role with permission groups

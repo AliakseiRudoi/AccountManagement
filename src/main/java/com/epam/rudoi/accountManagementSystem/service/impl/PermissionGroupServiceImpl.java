@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.epam.rudoi.accountManagementSystem.dao.IPermissionGroupDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 import com.epam.rudoi.accountManagementSystem.service.IPermissionGroupService;
@@ -60,8 +61,8 @@ public class PermissionGroupServiceImpl implements IPermissionGroupService{
 		}
 	}
 
-	public List<PermissionGroup> getAllPermissionGroups() throws ServiceException {
-		List<PermissionGroup> permissionGroups = null;
+	public List<PermissionGroupWithRestLinks> getAllPermissionGroups() throws ServiceException {
+		List<PermissionGroupWithRestLinks> permissionGroups = null;
 		try {
 			permissionGroups = permissionGroupDAO.getAllPermissionGroups();
 		} catch (DAOException e) {

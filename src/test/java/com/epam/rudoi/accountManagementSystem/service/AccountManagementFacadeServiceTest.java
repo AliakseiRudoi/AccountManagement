@@ -23,8 +23,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.epam.rudoi.accountManagementSystem.entity.Content;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
+import com.epam.rudoi.accountManagementSystem.entity.RoleWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 
@@ -59,9 +62,16 @@ public class AccountManagementFacadeServiceTest {
 	@Mock
 	private List<PermissionGroup> permissionGroupsMock;
 	@Mock
+	private List<PermissionGroupWithRestLinks> permissionGroupsWithLinksMock;
+	@Mock
 	private List<Role> rolesMock;
 	@Mock
+	private List<RoleWithRestLinks> rolesWithLinksMock;
+	@Mock
 	private List<User> usersMock;
+	@Mock
+	private List<UserWithRestLinks> usersWithLinkMock;
+	
 	
 	@InjectMocks
 	@Autowired
@@ -206,8 +216,8 @@ public class AccountManagementFacadeServiceTest {
 	
 	@Test
 	public void getAllPermissionGroupsTest() throws ServiceException, DAOException {
-		List<PermissionGroup> expectedPermissionGroups = permissionGroupsMock;
-		List<PermissionGroup> resultPermissionGroups = null;
+		List<PermissionGroupWithRestLinks> expectedPermissionGroups = permissionGroupsWithLinksMock;
+		List<PermissionGroupWithRestLinks> resultPermissionGroups = null;
 		when(permissionGroupServiceMock.getAllPermissionGroups()).thenReturn(expectedPermissionGroups);
 		
 		resultPermissionGroups = facadeService.getAllPermissionGroups();
@@ -277,8 +287,8 @@ public class AccountManagementFacadeServiceTest {
 
 	@Test
 	public void getAllRolesTest() throws ServiceException, DAOException {
-		List<Role> expectedRoles = rolesMock;
-		List<Role> resultRoles = null;
+		List<RoleWithRestLinks> expectedRoles = rolesWithLinksMock;
+		List<RoleWithRestLinks> resultRoles = null;
 		when(roleServiceMock.getAllRoles()).thenReturn(expectedRoles);
 		
 		resultRoles = facadeService.getAllRoles();
@@ -338,8 +348,8 @@ public class AccountManagementFacadeServiceTest {
 	
 	@Test
 	public void getAllUsersTest() throws ServiceException, DAOException {
-		List<User> expectedUsers = usersMock;
-		List<User> resultUsers = null;
+		List<UserWithRestLinks> expectedUsers = usersWithLinkMock;
+		List<UserWithRestLinks> resultUsers = null;
 		when(userServiceMock.getAllUsers()).thenReturn(expectedUsers);
 		
 		resultUsers = facadeService.getAllUsers();

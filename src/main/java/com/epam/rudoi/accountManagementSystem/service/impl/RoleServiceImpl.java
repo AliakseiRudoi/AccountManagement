@@ -10,6 +10,7 @@ import com.epam.rudoi.accountManagementSystem.dao.IRoleDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
+import com.epam.rudoi.accountManagementSystem.entity.RoleWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 import com.epam.rudoi.accountManagementSystem.service.IRoleService;
@@ -61,8 +62,8 @@ public class RoleServiceImpl implements IRoleService{
 		}
 	}
 
-	public List<Role> getAllRoles() throws ServiceException {
-		List<Role> roles = null;
+	public List<RoleWithRestLinks> getAllRoles() throws ServiceException {
+		List<RoleWithRestLinks> roles = null;
 		try {
 			roles = roleDAO.getAllRoles();
 		} catch (DAOException e) {

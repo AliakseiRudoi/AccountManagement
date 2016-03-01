@@ -9,13 +9,16 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.rudoi.accountManagementSystem.dao.IRoleDAO;
+import com.epam.rudoi.accountManagementSystem.dao.impl.util.RoleRowMapper;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
+import com.epam.rudoi.accountManagementSystem.entity.RoleWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 
 
@@ -115,8 +118,8 @@ public class RoleDAOImpl extends JdbcDaoSupport implements IRoleDAO{
 		});
 	}
 	
-	public List<Role> getAllRoles() throws DAOException {
-		List<Role> roles = (List<Role>) getJdbcTemplate().query(SQL_READ_ALL_ROLES, new BeanPropertyRowMapper(Role.class));
+	public List<RoleWithRestLinks> getAllRoles() throws DAOException {
+		List<RoleWithRestLinks> roles = (List<RoleWithRestLinks>) getJdbcTemplate().query(SQL_READ_ALL_ROLES, new RoleRowMapper());
 		return roles;
 	}
 }

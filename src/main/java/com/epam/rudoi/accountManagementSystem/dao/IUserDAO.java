@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 
 public interface IUserDAO extends ICrudDAO<User>, IManageDAO<Role>, IManageSeparatePermissions{
@@ -14,6 +15,6 @@ public interface IUserDAO extends ICrudDAO<User>, IManageDAO<Role>, IManageSepar
 	 * @return List<User> list of users  
 	 * @throws DAOException the DAO exception
 	 */
-	List<User> getAllUsers() throws DAOException;
+	List<UserWithRestLinks> getAllUsers() throws DAOException;
 	
 }

@@ -21,6 +21,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 
@@ -46,7 +47,7 @@ public class UserDAOTest {
 	
 	@Test
 	public void getAllUsersTest() throws DAOException{
-		List<User> resultUsersList = null;
+		List<UserWithRestLinks> resultUsersList = null;
 		resultUsersList = userDAO.getAllUsers();
 		assertNotNull(resultUsersList);
 	}

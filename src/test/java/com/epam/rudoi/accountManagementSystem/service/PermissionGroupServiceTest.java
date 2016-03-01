@@ -23,6 +23,7 @@ import org.mockito.MockitoAnnotations;
 import com.epam.rudoi.accountManagementSystem.dao.IPermissionGroupDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 
@@ -36,6 +37,8 @@ public class PermissionGroupServiceTest {
 	private PermissionGroup permissionGroupMock;
 	@Mock
 	private List<PermissionGroup> permissionGroupsMock;
+	@Mock
+	private List<PermissionGroupWithRestLinks> permissionGroupsWithLinksMock;
 	@InjectMocks
 	@Autowired
 	IPermissionGroupService permissionGroupService;
@@ -87,8 +90,8 @@ public class PermissionGroupServiceTest {
 	
 	@Test
 	public void getAllPermissionGroupsTest() throws ServiceException, DAOException {
-		List<PermissionGroup> expectedPermissionGroups = permissionGroupsMock;
-		List<PermissionGroup> resultPermissionGroups = null;
+		List<PermissionGroupWithRestLinks> expectedPermissionGroups = permissionGroupsWithLinksMock;
+		List<PermissionGroupWithRestLinks> resultPermissionGroups = null;
 		when(permissionGroupDAOMock.getAllPermissionGroups()).thenReturn(expectedPermissionGroups);
 		
 		resultPermissionGroups = permissionGroupService.getAllPermissionGroups();

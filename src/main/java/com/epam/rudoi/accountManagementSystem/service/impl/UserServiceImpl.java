@@ -10,6 +10,7 @@ import com.epam.rudoi.accountManagementSystem.dao.IUserDAO;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 import com.epam.rudoi.accountManagementSystem.service.IUserService;
@@ -61,8 +62,8 @@ public class UserServiceImpl implements IUserService{
 		}
 	}
 
-	public List<User> getAllUsers() throws ServiceException {
-		List<User> users = null;
+	public List<UserWithRestLinks> getAllUsers() throws ServiceException {
+		List<UserWithRestLinks> users = null;
 		try {
 			users = userDAO.getAllUsers();
 		} catch (DAOException e) {

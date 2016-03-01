@@ -5,6 +5,7 @@ import java.util.List;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 
 public interface IUserRest {
@@ -49,7 +50,7 @@ public interface IUserRest {
 	 * @return List<User> list of users
 	 * @throws ServiceException the service exception
 	 */
-	List<User> getAllUsers() throws ServiceException;
+	List<UserWithRestLinks> getAllUsers() throws ServiceException;
 	
 	/**
 	 * Associate current user with roles

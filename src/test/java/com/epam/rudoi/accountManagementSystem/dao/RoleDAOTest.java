@@ -16,6 +16,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
+import com.epam.rudoi.accountManagementSystem.entity.RoleWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 
@@ -104,7 +105,7 @@ public class RoleDAOTest {
 	
 	@Test
 	public void getAllRolesTest() throws DAOException{
-		List<Role> resultRolesList = null;
+		List<RoleWithRestLinks> resultRolesList = null;
 		resultRolesList = roleDAO.getAllRoles();
 		assertNotNull(resultRolesList);
 	}

@@ -1,6 +1,7 @@
 package com.epam.rudoi.accountManagementSystem.dao.impl;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -9,17 +10,23 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.epam.rudoi.accountManagementSystem.dao.IUserDAO;
+import com.epam.rudoi.accountManagementSystem.dao.impl.util.UserRowMapper;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 
 public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 
+     public static final String REST_END_POINT_GET_ROLES_OF_USER= "accountManagementSystem/rest/user/{user_id}/roles";
+     public static final String REST_END_POINT_GET_SEPARATE_PERMISSIONS_OF_USER= "accountManagementSystem/rest/user/{user_id}/separatepermissions";
+	
 	 public static final String SQL_CREATE_USERS = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, USER_NAME, USER_EMAIL) VALUES (?,?,?,?)";
 	
 	 public static final String SQL_UPDATE_USERS= "UPDATE USERS SET FIRST_NAME=?, LAST_NAME=?, USER_NAME=?, USER_EMAIL=? WHERE USER_ID = ?";
@@ -46,9 +53,9 @@ public class UserDAOImpl extends JdbcDaoSupport implements IUserDAO{
 	 @Autowired
 	 private DataSource dataSource;
 	 
-	 public List<User> getAllUsers() throws DAOException {
-		 List<User> users = (List<User>) getJdbcTemplate().query(SQL_READ_ALL_USERS, new BeanPropertyRowMapper(User.class));
-			return users;
+	 public List<UserWithRestLinks> getAllUsers() throws DAOException {
+		 List<UserWithRestLinks> users = (List<UserWithRestLinks>) getJdbcTemplate().query(SQL_READ_ALL_USERS, new UserRowMapper());
+		 return users;
 		}
 	 
 	public Long create(User user) throws DAOException {

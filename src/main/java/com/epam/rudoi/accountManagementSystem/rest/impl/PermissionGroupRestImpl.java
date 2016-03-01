@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 import com.epam.rudoi.accountManagementSystem.service.IAccountManagerFacadeService;
 import com.epam.rudoi.accountManagementSystem.rest.IPermissionGroupRest;
@@ -62,7 +63,7 @@ public class PermissionGroupRestImpl implements IPermissionGroupRest{
 	@GET
 	@RolesAllowed({"read-all-permission-groups"})
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<PermissionGroup> getAllPermissionGroups() throws ServiceException {
+	public List<PermissionGroupWithRestLinks> getAllPermissionGroups() throws ServiceException {
 		return accManagerFacadeService.getAllPermissionGroups();
 	}
 

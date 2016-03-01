@@ -5,8 +5,11 @@ import java.util.List;
 import com.epam.rudoi.accountManagementSystem.entity.Content;
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.entity.Role;
+import com.epam.rudoi.accountManagementSystem.entity.RoleWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.entity.User;
+import com.epam.rudoi.accountManagementSystem.entity.UserWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.ServiceException;
 
 public interface IAccountManagerFacadeService {
@@ -133,7 +136,7 @@ public interface IAccountManagerFacadeService {
 	 * @param PermissionGroup entity
 	 * @throws ServiceException the service exception
 	 */
-	List<PermissionGroup> getAllPermissionGroups() throws ServiceException;
+	List<PermissionGroupWithRestLinks> getAllPermissionGroups() throws ServiceException;
 	
 	/**
 	 * Associate current permission group with permissions
@@ -202,7 +205,7 @@ public interface IAccountManagerFacadeService {
 	 * @return List<Role> list of roles
 	 * @throws ServiceException the service exception
 	 */
-	List<Role> getAllRoles() throws ServiceException;
+	List<RoleWithRestLinks> getAllRoles() throws ServiceException;
 	
 	/**
 	 * Associate current role with permission groups
@@ -271,7 +274,7 @@ public interface IAccountManagerFacadeService {
 	 * @return List<User> list of users
 	 * @throws ServiceException the service exception
 	 */
-	List<User> getAllUsers() throws ServiceException;
+	List<UserWithRestLinks> getAllUsers() throws ServiceException;
 	
 	/**
 	 * Associate current user with roles

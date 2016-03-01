@@ -16,6 +16,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.epam.rudoi.accountManagementSystem.entity.Permission;
 import com.epam.rudoi.accountManagementSystem.entity.PermissionGroup;
+import com.epam.rudoi.accountManagementSystem.entity.PermissionGroupWithRestLinks;
 import com.epam.rudoi.accountManagementSystem.exceptions.DAOException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 
@@ -111,7 +112,7 @@ public class PermissionGroupDAOTest {
 	
 	@Test
 	public void getAllPermissionGroupsTest() throws DAOException {
-		List<PermissionGroup> permissionGroupsList = null;
+		List<PermissionGroupWithRestLinks> permissionGroupsList = null;
 		permissionGroupsList = permissionGroupDAO.getAllPermissionGroups();
 		
 		assertNotNull(permissionGroupsList);
