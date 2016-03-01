@@ -46,3 +46,9 @@ Service unit tests - src\test\java\com\epam\rudoi\accountManagementSystem\servic
 
 ###Test config
 Test context xml, test db create-insert - src\test\resources
+
+#TODO
+change mappers for next rest end points:
+-get all users 
+-get all roles
+-get all permission groups
