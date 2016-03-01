@@ -33,10 +33,12 @@ Implementation - src\main\java\com\epam\rudoi\accountManagementSystem\rest\impl
 ###Congif
 
 Configuration xml - src\main\webapp\WEB-INF
+
 Context xml, logger configuration, db create-insert - src\main\resources
 
 ###Tests
 Dao unit tests - src\test\java\com\epam\rudoi\accountManagementSystem\dao
+
 Service unit tests - src\test\java\com\epam\rudoi\accountManagementSystem\service
 
 ###Test config
